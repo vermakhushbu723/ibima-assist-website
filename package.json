@@ -1,0 +1,28 @@
+{
+  "name": "ibima-assist-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Corporate / marketing website for the IBima Assist claims-technology platform",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "smoke": "vite build --ssr scripts/smoke.jsx --outDir .smoke --emptyOutDir --logLevel warn && node .smoke/smoke.js"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^6.2.2",
+    "antd": "^6.3.7",
+    "lucide-react": "^1.28.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-icons": "^5.6.0",
+    "react-router-dom": "^7.14.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.2.4",
+    "@vitejs/plugin-react": "^6.0.1",
+    "tailwindcss": "^4.2.4",
+    "vite": "^8.0.10"
+  }
+}
