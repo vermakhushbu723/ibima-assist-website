@@ -30,6 +30,11 @@
         'Inter', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial,
         sans-serif;
 
+    /* Small-phone breakpoint. Tailwind starts at sm/640px, which
+       leaves 360–430px devices — most of the Indian mobile market —
+       sharing a layout with 320px feature phones. */
+    --breakpoint-xs: 25rem;
+
     --shadow-card: 0 1px 2px rgba(4, 20, 46, 0.04), 0 8px 28px -12px rgba(4, 20, 46, 0.14);
     --shadow-lift: 0 18px 46px -18px rgba(4, 20, 46, 0.32);
     --shadow-glow: 0 0 0 1px rgba(1, 160, 254, 0.18), 0 22px 60px -22px rgba(1, 160, 254, 0.55);
@@ -51,6 +56,30 @@ body {
     text-rendering: optimizeLegibility;
 }
 
+/* Decorative elements are positioned outside their containers in a
+   few places (the hero composition, floating cards). Clamp sideways
+   scroll at the root so none of them can produce a horizontal
+   scrollbar on narrow screens. Vertical scrolling is untouched. */
+html,
+body {
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+/* Long unbroken strings — email addresses, claim references, URLs —
+   should wrap rather than widen their container on a phone. */
+body {
+    overflow-wrap: break-word;
+}
+
+/* Never let media blow out a layout. */
+img,
+svg,
+video,
+canvas {
+    max-width: 100%;
+}
+
 ::selection {
     background: var(--color-brand-500);
     color: #fff;
@@ -69,17 +98,59 @@ body {
    Only things Tailwind can't express in a couple of utilities
    live here: gradients, decorative backgrounds, keyframes.
    ============================================================ */
+/* Page gutter grows with the viewport instead of jumping at a
+   breakpoint, so the same rule serves 320px phones through to
+   ultra-wide desktops. */
 @utility container-page {
     width: 100%;
     max-width: 80rem;
     margin-inline: auto;
-    padding-inline: 1.25rem;
+    padding-inline: clamp(1rem, 4vw, 2rem);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1536px) {
     .container-page {
-        padding-inline: 2rem;
+        max-width: 88rem;
     }
+}
+
+/* ── Fluid type scale ──────────────────────────────────────────
+   Headings interpolate with the viewport rather than jumping at
+   each breakpoint, which is what keeps 360px phones, 768px tablets
+   and 1440px laptops all looking deliberate instead of only the
+   three sizes we happened to pick. */
+@utility text-display {
+    font-size: clamp(2rem, 1.15rem + 4.2vw, 3.5rem);
+    line-height: 1.07;
+    letter-spacing: -0.022em;
+}
+
+@utility text-h1 {
+    font-size: clamp(1.8rem, 1.1rem + 3.4vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+@utility text-h2 {
+    font-size: clamp(1.55rem, 1.05rem + 2.4vw, 2.6rem);
+    line-height: 1.14;
+    letter-spacing: -0.018em;
+}
+
+@utility text-h3 {
+    font-size: clamp(1.15rem, 1rem + 0.7vw, 1.5rem);
+    line-height: 1.25;
+    letter-spacing: -0.012em;
+}
+
+@utility text-lead {
+    font-size: clamp(0.95rem, 0.88rem + 0.34vw, 1.125rem);
+    line-height: 1.65;
+}
+
+/* Fluid vertical rhythm for page sections. */
+@utility section-y {
+    padding-block: clamp(3.25rem, 1.5rem + 6vw, 6rem);
 }
 
 /* Deep navy panel used for the hero, CTA bands and the footer. */

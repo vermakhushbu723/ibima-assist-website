@@ -14,9 +14,13 @@ const BrandLogo = ({ variant = 'dark', className = '', showTagline = false }) =>
     const onDark = variant === 'light';
 
     return (
-        <Link to="/" className={`inline-flex items-center gap-2.5 group ${className}`} aria-label={`${BRAND.name} home`}>
-            <span className="relative inline-flex h-9 w-9 shrink-0 items-center justify-center">
-                <svg viewBox="0 0 40 40" className="h-9 w-9" aria-hidden="true">
+        <Link
+            to="/"
+            className={`group inline-flex min-w-0 items-center gap-2 sm:gap-2.5 ${className}`}
+            aria-label={`${BRAND.name} home`}
+        >
+            <span className="relative inline-flex h-8 w-8 shrink-0 items-center justify-center sm:h-9 sm:w-9">
+                <svg viewBox="0 0 40 40" className="h-8 w-8 sm:h-9 sm:w-9" aria-hidden="true">
                     <defs>
                         <linearGradient id="brandmark" x1="0" y1="0" x2="1" y2="1">
                             <stop offset="0%" stopColor="#38b6fb" />
@@ -39,14 +43,14 @@ const BrandLogo = ({ variant = 'dark', className = '', showTagline = false }) =>
                 </svg>
             </span>
 
-            <span className="flex flex-col leading-none">
-                <span className="text-[1.28rem] font-extrabold tracking-tight">
+            <span className="flex min-w-0 flex-col leading-none">
+                <span className="truncate text-[1.15rem] font-extrabold tracking-tight sm:text-[1.28rem]">
                     <span className={onDark ? 'text-white' : 'text-ink'}>{BRAND.nameLead}</span>
                     <span className="text-brand-500">{BRAND.nameTrail}</span>
                 </span>
                 {showTagline && (
                     <span
-                        className={`mt-1 text-[10px] font-medium uppercase tracking-[0.16em] ${
+                        className={`mt-1 text-[11px] font-medium uppercase tracking-[0.12em] sm:tracking-[0.14em] ${
                             onDark ? 'text-slate-400' : 'text-slate-500'
                         }`}
                     >

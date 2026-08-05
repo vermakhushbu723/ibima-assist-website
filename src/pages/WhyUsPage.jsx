@@ -7,6 +7,7 @@ import Img from '../components/ui/Img';
 import CTABand from '../components/ui/CTABand';
 import { Spotlight } from '../components/ui/Motion';
 import usePageMeta from '../hooks/usePageMeta';
+import { BRAND } from '../data/site';
 import { PHOTOS } from '../data/images';
 import { DIFFERENTIATORS } from '../data/content';
 
@@ -85,10 +86,10 @@ const WhyUsPage = () => {
                     lead="Not features — the design decisions underneath them."
                 />
 
-                <div className="mt-12 grid gap-5 lg:grid-cols-2">
+                <div className="mt-10 grid gap-4 sm:mt-12 sm:gap-5 lg:grid-cols-2">
                     {DIFFERENTIATORS.map((d, i) => (
                         <Reveal key={d.title} delay={(i % 2) * 100} from={i % 2 === 0 ? 'left' : 'right'}>
-                            <div className="card card-hover group h-full p-7 lg:p-8">
+                            <div className="card card-hover group h-full p-5 sm:p-7 lg:p-8">
                                 <div className="flex items-start gap-4">
                                     <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-[0_12px_26px_-12px_rgba(1,160,254,0.9)] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3">
                                         <Icon name={d.icon} className="h-5.5 w-5.5" strokeWidth={1.75} />
@@ -102,7 +103,7 @@ const WhyUsPage = () => {
                 </div>
 
                 {/* Evidence pair */}
-                <div className="mt-10 grid gap-4 sm:grid-cols-2">
+                <div className="mt-8 grid gap-4 xs:grid-cols-2 sm:mt-10">
                     {[
                         {
                             base: PHOTOS.crashFront,
@@ -122,7 +123,7 @@ const WhyUsPage = () => {
                                 <Img base={p.base} alt={p.alt} ratio="aspect-[16/10]" zoom>
                                     <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/30 to-transparent" />
                                     <div className="absolute inset-x-0 bottom-0 p-5">
-                                        <span className="inline-block rounded-full bg-brand-500 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
+                                        <span className="inline-block rounded-full bg-brand-500 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
                                             {p.tag}
                                         </span>
                                         <p className="mt-2.5 text-sm leading-relaxed text-slate-200">{p.caption}</p>
@@ -142,8 +143,8 @@ const WhyUsPage = () => {
                     lead="The left column is how most motor claims are handled today. The right column is what the platform enforces."
                 />
 
-                <Reveal className="mt-12 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_24px_54px_-32px_rgba(4,20,46,0.4)]">
-                    {/* Header row — desktop */}
+                <Reveal className="mt-10 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_24px_54px_-32px_rgba(4,20,46,0.4)] sm:mt-12">
+                    {/* Column headers — only where there are columns to head */}
                     <div className="hidden grid-cols-12 gap-4 border-b border-slate-200 bg-slate-50 px-6 py-3.5 md:grid">
                         <p className="col-span-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">
                             Area
@@ -152,7 +153,7 @@ const WhyUsPage = () => {
                             The usual way
                         </p>
                         <p className="col-span-5 text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-600">
-                            With IBima Assist
+                            With {BRAND.name}
                         </p>
                     </div>
 
@@ -160,22 +161,33 @@ const WhyUsPage = () => {
                         {COMPARISON.map((row) => (
                             <div
                                 key={row.area}
-                                className="grid gap-3 px-6 py-5 transition-colors duration-300 hover:bg-brand-50/40 md:grid-cols-12 md:gap-4"
+                                className="grid gap-2.5 px-5 py-4 transition-colors duration-300 hover:bg-brand-50/40 sm:px-6 sm:py-5 md:grid-cols-12 md:gap-4"
                             >
                                 <p className="text-sm font-bold text-ink md:col-span-3">{row.area}</p>
 
                                 <div className="flex items-start gap-2.5 md:col-span-4">
-                                    <span className="mt-1.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-slate-200 text-slate-500">
+                                    <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-slate-200 text-slate-500 sm:mt-1.5">
                                         <Icon name="close" className="h-2.5 w-2.5" strokeWidth={4} />
                                     </span>
-                                    <p className="text-[13px] leading-relaxed text-slate-500">{row.before}</p>
+                                    <p className="text-[13px] leading-relaxed text-slate-500">
+                                        {/* Stacked on phones, so the columns need naming inline */}
+                                        <span className="font-semibold uppercase tracking-wider text-slate-400 md:hidden">
+                                            Usually:{' '}
+                                        </span>
+                                        {row.before}
+                                    </p>
                                 </div>
 
                                 <div className="flex items-start gap-2.5 md:col-span-5">
-                                    <span className="mt-1.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-brand-500 text-white">
+                                    <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-brand-500 text-white sm:mt-1.5">
                                         <Icon name="check" className="h-2.5 w-2.5" strokeWidth={4} />
                                     </span>
-                                    <p className="text-[13px] font-medium leading-relaxed text-slate-700">{row.after}</p>
+                                    <p className="text-[13px] font-medium leading-relaxed text-slate-700">
+                                        <span className="font-semibold uppercase tracking-wider text-brand-600 md:hidden">
+                                            With us:{' '}
+                                        </span>
+                                        {row.after}
+                                    </p>
                                 </div>
                             </div>
                         ))}
@@ -185,7 +197,7 @@ const WhyUsPage = () => {
 
             {/* What we don't claim */}
             <Section tone="deep">
-                <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+                <div className="grid gap-10 md:gap-12 lg:grid-cols-12 lg:gap-14 xl:gap-16">
                     <div className="lg:col-span-5">
                         <SectionHeading
                             tone="deep"

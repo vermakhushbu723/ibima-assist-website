@@ -17,11 +17,16 @@ see [Where the content comes from](#where-the-content-comes-from) below.
 
 ```bash
 npm install
-npm run dev        # http://localhost:5174
-npm run build      # -> dist/
-npm run preview    # serve the built output
-npm run smoke      # render every page server-side and fail on any runtime error
+npm run dev               # http://localhost:5174
+npm run build             # -> dist/
+npm run preview           # serve the built output
+npm run smoke             # render every page server-side; fails on any runtime error
+npm run audit:responsive  # after a build: load every page at 10 device widths
 ```
+
+`audit:responsive` runs against `dist/`, so build first. It drives the Chrome or Edge already
+installed on the machine via `puppeteer-core` — no 300MB browser download. If neither is at a
+standard path, add yours to `BROWSERS` at the top of `scripts/responsive-audit.mjs`.
 
 Same stack as the product app so the two stay easy to move between: **Vite + React 19 +
 Tailwind CSS v4 + Ant Design v6 + React Router v7**, plus **Lucide** for icons.
@@ -62,8 +67,11 @@ The seven solutions in `src/data/solutions.js` are not invented — each maps to
 Search the codebase for `TODO` — everything that needs the client's real data is marked. In
 particular:
 
-- **`src/data/site.js`** — brand legal name, phone, email, both office addresses, social links, and
-  the `APP_LINKS` URLs behind the "Login" buttons. All are placeholders right now.
+- **`src/data/site.js`** — phone, email, both office addresses, social links, and the `APP_LINKS`
+  URLs behind the "Login" buttons. All are placeholders right now. Also holds `LEGAL`, whose
+  **CIN and GSTIN are dummy values** (`U00000XX0000PTC000000` / `00XXXXX0000X0XX`) — replace them
+  with VroomSync Expertise Pvt Ltd's real registration numbers, and have the six declaration
+  paragraphs reviewed by whoever signs off legal copy before launch.
 - **`src/data/images.js`** — every photograph on the site is a hotlinked Unsplash image (free for
   commercial use, no attribution required). Each URL was fetched and visually checked before being
   used, so nothing is dead or off-topic — but they are still stock. Replace them with the client's
@@ -77,13 +85,24 @@ particular:
   figures and confirmed dates.
 - **`src/pages/ContactPage.jsx`** — the enquiry form currently logs to the console and shows a
   success message. Point `onFinish` at the real endpoint or CRM before launch.
-- **`src/components/layout/Footer.jsx`** — Privacy Policy and Terms links point at `/contact`
-  until the real documents exist.
+- **`src/components/layout/Footer.jsx`** — the five policy links (Privacy, Terms, Cookies,
+  Disclaimer, Grievance Redressal) all point at `/contact` until the real documents exist. Their
+  targets live in `LEGAL.policies`.
 - **`src/components/ui/BrandLogo.jsx`** and **`public/favicon.svg`** — replace the drawn mark with
   the client's supplied logo. Only those two files need to change.
 - **`src/components/ui/PlatformVisual.jsx`** — the hero composition is drawn in CSS/SVG rather
   than screenshotted, so it needs no assets. Swap for real product screenshots once they are
   cleared for marketing use.
+
+## Naming
+
+- **IBima Assist** — the product, and the name in the wordmark, page titles and body copy.
+- **VroomSync Expertise Pvt Ltd** — the company that owns and operates it. Appears as
+  "Powered by …" under the footer wordmark, in the copyright line, and throughout the
+  declarations block.
+
+Both come from `BRAND` in `src/data/site.js`. Change them there and the whole site follows —
+nothing hard-codes either name.
 
 ## Architecture notes
 
@@ -118,7 +137,68 @@ particular:
   sheen and counter degrades to its final state. That fallback lives in one `@media` block at the
   bottom of `src/index.css`; add new animations to it when you add them.
 
+## Responsive behaviour
+
+Breakpoints: `xs` 400px (added — Tailwind's default jump from 0 to `sm`/640px leaves most Indian
+phones sharing a layout with 320px devices), then Tailwind's `sm` 640, `md` 768, `lg` 1024,
+`xl` 1280, `2xl` 1536.
+
+- **Type scales fluidly**, not in steps. `text-display`, `text-h1`, `text-h2`, `text-h3` and
+  `text-lead` are `clamp()`-based utilities in `src/index.css`, so a 1180px laptop gets a size
+  chosen for 1180px rather than the one picked for 1024px. Use them instead of long
+  `text-2xl sm:text-3xl lg:text-4xl` chains.
+- **Gutters and section rhythm scale too** — `container-page` uses `clamp(1rem, 4vw, 2rem)` and
+  `section-y` uses `clamp(3.25rem, …, 6rem)`.
+- **Horizontal overflow is clamped at the root** (`overflow-x: clip` on `html, body`). That's a
+  safety net, not a licence — the audit below still fails on any element that sticks out.
+- **The desktop nav appears at `lg`.** Seven links plus two buttons need ~1024px before they
+  crowd; below that everything moves into the drawer.
+
+Run `npm run audit:responsive` after any layout change. It loads all 15 URLs at 10 widths
+(320 → 2560) in a real browser and fails on:
+
+| Check | Bar |
+|---|---|
+| Horizontal page overflow | `scrollWidth` must not exceed `clientWidth` |
+| Element wider than the viewport | unless an ancestor clips it (`overflow-x`) |
+| Element hanging off-canvas | same clipping exemption; `position: fixed` exempt |
+| Text too small | 11px minimum |
+| Tap target too small | 24×24 on touch viewports — WCAG 2.2 SC 2.5.8 AA |
+
+Before measuring it settles the page: scrolls to the bottom so lazy images and scroll-reveals
+fire, forces every `.reveal` to `is-visible`, and disables all animation and transition. Without
+that it would catch elements mid-slide and report the animation as a layout break.
+
+Two escape hatches, both used sparingly:
+- `data-decorative` on an element exempts its subtree from the minimum-font-size rule. Only
+  `PlatformVisual` uses it — that's a drawing of a product UI, and its labels are meant to look
+  miniature. It's `aria-hidden` for the same reason.
+- Anything inside an `overflow-x` container is allowed to be wider than the viewport, which is
+  what makes the marquee and the horizontally-scrolling pipeline legal.
+
 ## Deployment
 
-`vercel.json` rewrites every path to `index.html`, which is what the client-side router needs. On
-any other host, configure the equivalent SPA fallback or deep links will 404.
+### Vercel
+
+The 404-on-refresh you get from a Vite SPA is the router asking the host for a path that has no
+file behind it. `vercel.json` fixes it by rewriting everything except real assets to
+`index.html`.
+
+**If you still get `404: NOT_FOUND` after a deploy, the cause is almost always the Root
+Directory setting, not the config.** This repo holds several projects side by side, so Vercel
+must be told which one to build:
+
+1. Vercel dashboard → your project → **Settings → General → Root Directory**
+2. Set it to `ibima-assist-website` and save.
+3. Settings → General → Build & Output: leave everything on **Framework Preset: Vite**. The
+   values in `vercel.json` (`buildCommand`, `outputDirectory: dist`) take precedence anyway.
+4. **Redeploy** — and untick "Use existing Build Cache" so the new `vercel.json` is picked up.
+
+To confirm the fix, open a deep link directly (e.g. `https://<your-domain>/solutions/pre-inspection`)
+and hard-refresh. It should render the page, not a 404.
+
+### Other hosts
+
+`public/_redirects` carries the same fallback for Netlify and Cloudflare Pages. On nginx, Apache
+or S3+CloudFront, configure the equivalent: serve `index.html` for any path that doesn't match a
+file in `dist/`.

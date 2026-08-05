@@ -43,10 +43,12 @@ const SolutionsPage = () => {
                     lead="Read left to right — this is the order a claim actually moves in."
                 />
 
-                <div className="mt-12 overflow-x-auto pb-2">
-                    <div className="flex min-w-[860px] items-stretch gap-3">
+                {/* Horizontal on tablet and up; a plain stack on phones,
+                    where a 5-across scroller is more work than it's worth. */}
+                <div className="mt-10 -mx-[clamp(1rem,4vw,2rem)] overflow-x-auto px-[clamp(1rem,4vw,2rem)] pb-2 sm:mt-12">
+                    <div className="grid gap-3 xs:grid-cols-2 sm:flex sm:min-w-[820px] sm:items-stretch">
                         {PROCESS.map((p, i) => (
-                            <Reveal key={p.step} delay={i * 90} from="right" className="flex-1">
+                            <Reveal key={p.step} delay={i * 90} from="right" className="sm:flex-1">
                                 <div className="group flex h-full flex-col rounded-2xl border border-slate-200 bg-slate-50/70 p-5 transition-all duration-400 hover:-translate-y-1 hover:border-brand-200 hover:bg-white hover:shadow-[0_18px_40px_-20px_rgba(4,20,46,0.35)]">
                                     <div className="flex items-center gap-2.5">
                                         <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-500 text-xs font-bold text-white transition-transform duration-400 group-hover:scale-110">
@@ -120,16 +122,16 @@ const SolutionsPage = () => {
                                     </div>
 
                                     {/* Copy */}
-                                    <div className="p-7 lg:col-span-7 lg:p-9 lg:[direction:ltr]">
-                                        <h3 className="text-xl font-extrabold tracking-tight text-ink sm:text-2xl">
-                                            {s.name}
-                                        </h3>
-                                        <p className="mt-2 text-sm font-medium" style={{ color: s.accent }}>
+                                    <div className="p-5 xs:p-7 lg:col-span-7 lg:p-9 lg:[direction:ltr]">
+                                        <h3 className="text-h3 font-extrabold tracking-tight text-ink">{s.name}</h3>
+                                        <p className="mt-2 text-[13px] font-medium sm:text-sm" style={{ color: s.accent }}>
                                             {s.tagline}
                                         </p>
-                                        <p className="mt-4 text-sm leading-relaxed text-slate-600">{s.summary}</p>
+                                        <p className="mt-3.5 text-[13px] leading-relaxed text-slate-600 sm:mt-4 sm:text-sm">
+                                            {s.summary}
+                                        </p>
 
-                                        <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
+                                        <ul className="mt-5 grid gap-2.5 sm:mt-6 sm:grid-cols-2">
                                             {s.features.slice(0, 4).map((f) => (
                                                 <li key={f.title} className="flex items-start gap-2.5">
                                                     <Icon
@@ -144,7 +146,7 @@ const SolutionsPage = () => {
                                             ))}
                                         </ul>
 
-                                        <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
+                                        <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 sm:mt-7">
                                             <Link
                                                 to={`/solutions/${s.slug}`}
                                                 className="sheen inline-flex items-center gap-2 rounded-xl bg-ink px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-900"
@@ -171,7 +173,7 @@ const SolutionsPage = () => {
 
             {/* Deployment reassurance band */}
             <Section tone="deep">
-                <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+                <div className="grid items-center gap-10 md:gap-12 lg:grid-cols-12 lg:gap-14 xl:gap-16">
                     <Reveal from="left" className="lg:col-span-6">
                         <div className="overflow-hidden rounded-2xl">
                             <Img
@@ -193,7 +195,7 @@ const SolutionsPage = () => {
                             lead="Nothing here demands a big-bang rollout. Each module produces structured data the next one can read, so adding a second is configuration rather than migration."
                         />
 
-                        <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                        <div className="mt-7 grid gap-3 xs:grid-cols-2 sm:mt-8">
                             {[
                                 { icon: 'route', label: 'No forced sequence' },
                                 { icon: 'lock', label: 'Role-scoped access' },

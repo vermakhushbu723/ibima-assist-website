@@ -39,7 +39,7 @@ const ProfileCard = ({ person, index }) => (
                 )}
 
                 {person.placeholder && (
-                    <span className="absolute right-3 top-3 rounded-full bg-amber-400 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-amber-950 shadow">
+                    <span className="absolute right-3 top-3 rounded-full bg-amber-400 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-amber-950 shadow">
                         Placeholder
                     </span>
                 )}
@@ -84,16 +84,18 @@ const TeamPage = () => {
                     lead="Each of these has veto over its own area, which is why the workflow matches how claims really move and the AI does not overreach."
                 />
 
-                <div className="mt-12 grid gap-5 sm:grid-cols-2">
+                <div className="mt-10 grid gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-5">
                     {TEAM_CAPABILITIES.map((c, i) => (
                         <Reveal key={c.title} delay={(i % 2) * 100} from={i % 2 === 0 ? 'left' : 'right'}>
-                            <div className="card card-hover group flex h-full gap-5 p-7">
+                            <div className="card card-hover group flex h-full gap-4 p-5 sm:gap-5 sm:p-7">
                                 <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-[0_12px_26px_-12px_rgba(1,160,254,0.9)] transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
                                     <Icon name={c.icon} className="h-5.5 w-5.5" strokeWidth={1.75} />
                                 </span>
                                 <div>
-                                    <h3 className="text-lg font-bold text-ink">{c.title}</h3>
-                                    <p className="mt-2 text-sm leading-relaxed text-slate-600">{c.detail}</p>
+                                    <h3 className="text-h3 font-bold text-ink">{c.title}</h3>
+                                    <p className="mt-2 text-[13px] leading-relaxed text-slate-600 sm:text-sm">
+                                        {c.detail}
+                                    </p>
                                 </div>
                             </div>
                         </Reveal>
@@ -101,7 +103,7 @@ const TeamPage = () => {
                 </div>
 
                 {/* Field + desk, side by side */}
-                <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                <div className="mt-4 grid gap-4 xs:grid-cols-2 sm:mt-8">
                     {[
                         {
                             base: PHOTOS.technician,
@@ -136,7 +138,7 @@ const TeamPage = () => {
                     lead="Profiles are being finalised — names, roles and photographs will appear here shortly."
                 />
 
-                <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="mt-10 grid gap-4 xs:grid-cols-2 sm:mt-12 sm:gap-5 lg:grid-cols-3">
                     {TEAM_PROFILES.map((p, i) => (
                         <ProfileCard key={`${p.role}-${i}`} person={p} index={i} />
                     ))}
@@ -155,7 +157,7 @@ const TeamPage = () => {
 
             {/* Working with us */}
             <Section tone="deep">
-                <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+                <div className="grid gap-10 md:gap-12 lg:grid-cols-12 lg:gap-14 xl:gap-16">
                     <div className="lg:col-span-5">
                         <SectionHeading
                             tone="deep"
@@ -166,7 +168,7 @@ const TeamPage = () => {
                         />
                     </div>
 
-                    <div className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
+                    <div className="grid gap-4 xs:grid-cols-2 lg:col-span-7">
                         {[
                             { title: 'Scoping', detail: 'We look at your current claim journey and agree where the platform starts.', icon: 'clipboard' },
                             { title: 'Configuration', detail: 'Partners, roles, checklists and report formats set up against your book.', icon: 'workflow' },

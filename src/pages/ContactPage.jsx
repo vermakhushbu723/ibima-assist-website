@@ -177,12 +177,12 @@ const ContactPage = () => {
             />
 
             <Section tone="light">
-                <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
+                <div className="grid gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-14">
                     {/* Form */}
                     <Reveal className="lg:col-span-7">
-                        <div className="rounded-2xl border border-slate-200 bg-white p-7 shadow-[0_24px_54px_-32px_rgba(4,20,46,0.4)] sm:p-9">
-                            <h2 className="text-2xl font-extrabold tracking-tight text-ink">Send us an enquiry</h2>
-                            <p className="mt-2 mb-7 text-sm leading-relaxed text-slate-600">
+                        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_24px_54px_-32px_rgba(4,20,46,0.4)] xs:p-7 sm:p-9">
+                            <h2 className="text-h3 font-extrabold tracking-tight text-ink">Send us an enquiry</h2>
+                            <p className="mb-6 mt-2 text-[13px] leading-relaxed text-slate-600 sm:mb-7 sm:text-sm">
                                 Fill this in and someone from the team — not a sales bot — will come back to you.
                             </p>
                             <ContactForm />
@@ -209,13 +209,13 @@ const ContactPage = () => {
                         </Reveal>
 
                         <Reveal delay={100} from="right">
-                            <h2 className="text-2xl font-extrabold tracking-tight text-ink">Reach us directly</h2>
-                            <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                            <h2 className="text-h3 font-extrabold tracking-tight text-ink">Reach us directly</h2>
+                            <p className="mt-2 text-[13px] leading-relaxed text-slate-600 sm:text-sm">
                                 {CONTACT.supportNote}
                             </p>
                         </Reveal>
 
-                        <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+                        <div className="mt-6 grid gap-4 xs:grid-cols-2 sm:mt-7 lg:grid-cols-1">
                             {cards.map((c, i) => {
                                 const body = (
                                     <>
@@ -229,7 +229,7 @@ const ContactPage = () => {
                                             {c.lines.map((line) => (
                                                 <p
                                                     key={line}
-                                                    className="mt-0.5 truncate text-sm font-medium text-slate-700"
+                                                    className="mt-0.5 break-words text-[13px] font-medium text-slate-700 sm:text-sm"
                                                 >
                                                     {line}
                                                 </p>
@@ -283,7 +283,7 @@ const ContactPage = () => {
                     title="Three steps, no sales theatre"
                 />
 
-                <div className="mt-14 grid gap-6 md:grid-cols-3">
+                <div className="mt-10 grid gap-5 sm:mt-14 sm:gap-6 md:grid-cols-3">
                     {[
                         {
                             step: '01',
@@ -302,7 +302,7 @@ const ContactPage = () => {
                         },
                     ].map((s, i) => (
                         <Reveal key={s.step} delay={i * 110} from="up">
-                            <Spotlight className="h-full rounded-2xl border border-white/12 bg-white/[0.04] p-7 backdrop-blur transition-transform duration-500 hover:-translate-y-1.5">
+                            <Spotlight className="h-full rounded-2xl border border-white/12 bg-white/[0.04] p-5 backdrop-blur transition-transform duration-500 hover:-translate-y-1.5 sm:p-7">
                                 <span className="relative z-10 grid h-11 w-11 place-items-center rounded-xl border border-brand-400/30 bg-brand-500/15 text-sm font-bold text-brand-300">
                                     {s.step}
                                 </span>

@@ -1,0 +1,4 @@
+# SPA fallback for Netlify / Cloudflare Pages.
+# Vercel uses vercel.json instead — this file is ignored there, and is
+# kept so the site deep-links correctly whichever host it lands on.
+/*    /index.html   200

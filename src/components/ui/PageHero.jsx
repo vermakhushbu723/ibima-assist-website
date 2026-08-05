@@ -30,21 +30,24 @@ const PageHero = ({ eyebrow, title, lead, breadcrumb = [], photo, children }) =>
             </div>
         )}
 
-        {/* Top padding clears the fixed navbar (4rem / 4.5rem tall) with a
-            small breathing gap — no more. */}
-        <div className="container-page relative z-10 pb-12 pt-24 sm:pb-14 sm:pt-26 lg:pb-16 lg:pt-28">
+        {/* Top padding clears the fixed navbar (3.5rem / 4rem / 4.5rem
+            tall by breakpoint) with a small breathing gap — no more. */}
+        <div className="container-page relative z-10 pb-10 pt-22 xs:pt-24 sm:pb-14 sm:pt-26 lg:pb-16 lg:pt-28">
             <Reveal className="max-w-3xl">
                 {breadcrumb.length > 0 && (
-                    <nav aria-label="Breadcrumb" className="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-400">
+                    <nav
+                        aria-label="Breadcrumb"
+                        className="mb-4 flex flex-wrap items-center gap-x-1.5 text-xs text-slate-400 sm:mb-5"
+                    >
                         {breadcrumb.map((crumb, i) => (
                             <span key={crumb.label} className="inline-flex items-center gap-1.5">
                                 {i > 0 && <span className="text-slate-600">/</span>}
                                 {crumb.to ? (
-                                    <Link to={crumb.to} className="transition hover:text-brand-300">
+                                    <Link to={crumb.to} className="inline-block py-1.5 transition hover:text-brand-300">
                                         {crumb.label}
                                     </Link>
                                 ) : (
-                                    <span className="text-slate-300">{crumb.label}</span>
+                                    <span className="py-1.5 text-slate-300">{crumb.label}</span>
                                 )}
                             </span>
                         ))}
@@ -52,19 +55,15 @@ const PageHero = ({ eyebrow, title, lead, breadcrumb = [], photo, children }) =>
                 )}
 
                 {eyebrow && (
-                    <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-200 ring-1 ring-white/15">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-brand-200 ring-1 ring-white/15 sm:px-3.5 sm:tracking-[0.14em]">
                         <span className="h-1.5 w-1.5 rounded-full bg-brand-400" />
                         {eyebrow}
                     </span>
                 )}
 
-                <h1 className="mt-4 text-[2.1rem] font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl">
-                    {title}
-                </h1>
+                <h1 className="text-h1 mt-3.5 font-extrabold text-white sm:mt-4">{title}</h1>
 
-                {lead && (
-                    <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">{lead}</p>
-                )}
+                {lead && <p className="text-lead mt-4 max-w-2xl text-slate-300 sm:mt-5">{lead}</p>}
 
                 {children}
             </Reveal>

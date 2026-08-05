@@ -33,21 +33,17 @@ const CTABand = ({
             <div className="absolute inset-0 bg-gradient-to-b from-ink/85 via-ink/70 to-ink/90" />
         </div>
 
-        <div className="container-page relative z-10 py-16 sm:py-20">
+        <div className="container-page relative z-10 py-14 sm:py-18 lg:py-20">
             <Reveal className="mx-auto max-w-4xl text-center">
-                <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-200 ring-1 ring-white/15">
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-brand-200 ring-1 ring-white/15 sm:px-3.5 sm:tracking-[0.14em]">
                     <span className="h-1.5 w-1.5 rounded-full bg-brand-400" />
                     {eyebrow}
                 </span>
 
-                <h2 className="mt-5 text-3xl font-extrabold leading-[1.14] tracking-tight text-white sm:text-4xl lg:text-[2.7rem]">
-                    {title}
-                </h2>
-                <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">
-                    {lead}
-                </p>
+                <h2 className="text-h2 mt-4 font-extrabold text-white sm:mt-5">{title}</h2>
+                <p className="text-lead mx-auto mt-4 max-w-2xl text-slate-300">{lead}</p>
 
-                <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row">
                     <Link
                         to={primaryTo}
                         className="sheen group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-500 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_18px_40px_-14px_rgba(1,160,254,0.85)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-400 sm:w-auto"
@@ -67,13 +63,19 @@ const CTABand = ({
                     </Link>
                 </div>
 
-                <p className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-400">
-                    <a href={CONTACT.phoneHref} className="inline-flex items-center gap-2 transition hover:text-white">
-                        <Icon name="phone" className="h-4 w-4" strokeWidth={1.7} />
+                <p className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-[13px] text-slate-400 sm:text-sm">
+                    <a
+                        href={CONTACT.phoneHref}
+                        className="inline-flex items-center gap-2 py-1.5 transition hover:text-white"
+                    >
+                        <Icon name="phone" className="h-4 w-4 shrink-0" strokeWidth={1.7} />
                         {CONTACT.phone}
                     </a>
-                    <a href={CONTACT.emailHref} className="inline-flex items-center gap-2 transition hover:text-white">
-                        <Icon name="mail" className="h-4 w-4" strokeWidth={1.7} />
+                    <a
+                        href={CONTACT.emailHref}
+                        className="inline-flex max-w-full items-center gap-2 break-all py-1.5 transition hover:text-white"
+                    >
+                        <Icon name="mail" className="h-4 w-4 shrink-0" strokeWidth={1.7} />
                         {CONTACT.email}
                     </a>
                 </p>

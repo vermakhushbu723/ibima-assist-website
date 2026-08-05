@@ -88,7 +88,7 @@ const ConsoleCard = () => (
 );
 
 const PhoneCard = () => (
-    <div className="w-[186px] rounded-[2rem] bg-slate-900 p-2 shadow-[0_36px_80px_-24px_rgba(4,20,46,0.85)] ring-1 ring-white/10">
+    <div className="w-[132px] rounded-3xl bg-slate-900 p-1.5 shadow-[0_36px_80px_-24px_rgba(4,20,46,0.85)] ring-1 ring-white/10 xs:w-[150px] sm:w-[172px] sm:rounded-[2rem] sm:p-2 xl:w-[186px]">
         <div className="relative overflow-hidden rounded-[1.6rem] bg-gradient-to-b from-brand-100 via-brand-500 to-brand-600">
             {/* Notch */}
             <div className="absolute left-1/2 top-1.5 z-20 h-3.5 w-16 -translate-x-1/2 rounded-full bg-slate-900" />
@@ -166,7 +166,7 @@ const PhoneCard = () => (
 
 /** Assessment result card — a real damage photo with the detected part boxed. */
 const AiCard = () => (
-    <div className="w-[210px] overflow-hidden rounded-xl bg-white/95 p-2 shadow-[0_22px_50px_-20px_rgba(4,20,46,0.7)] ring-1 ring-slate-900/5 backdrop-blur">
+    <div className="w-[158px] overflow-hidden rounded-xl bg-white/95 p-1.5 shadow-[0_22px_50px_-20px_rgba(4,20,46,0.7)] ring-1 ring-slate-900/5 backdrop-blur sm:w-[180px] sm:p-2 xl:w-[210px]">
         <div className="relative overflow-hidden rounded-lg">
             <Img
                 base={PHOTOS.crashRear}
@@ -206,27 +206,43 @@ const AiCard = () => (
     </div>
 );
 
+/**
+ * The floating phone and assessment card overhang the console on
+ * purpose. Their offsets stay inside the page gutter on every
+ * width, and the bottom padding reserves room for the phone so the
+ * composition never collides with the section below it.
+ *
+ * The whole thing is `aria-hidden` and marked `data-decorative`: it
+ * is an illustration of the product, not content. Screen readers
+ * would otherwise announce mock claim numbers as if they were real,
+ * and its deliberately miniature UI labels would trip the
+ * minimum-font-size rule in scripts/responsive-audit.mjs.
+ */
 const PlatformVisual = ({ className = '' }) => (
-    <div className={`relative mx-auto w-full max-w-[520px] ${className}`}>
+    <div
+        aria-hidden="true"
+        data-decorative="true"
+        className={`relative mx-auto w-full max-w-[520px] pb-16 sm:pb-20 ${className}`}
+    >
         {/* Glow behind the composition */}
         <div
-            className="halo pointer-events-none absolute -inset-10 -z-10 rounded-full blur-3xl"
+            className="halo pointer-events-none absolute -inset-6 -z-10 rounded-full blur-3xl sm:-inset-10"
             style={{
                 background:
                     'radial-gradient(50% 50% at 50% 50%, rgba(1,160,254,0.45) 0%, rgba(1,160,254,0) 72%)',
             }}
         />
 
-        <div className="pl-0 sm:pl-16">
+        <div className="pl-10 xs:pl-14 sm:pl-16">
             <ConsoleCard />
         </div>
 
-        <div className="float-slow absolute -bottom-10 -left-2 sm:-left-6">
+        <div className="float-slow absolute bottom-4 left-0 sm:bottom-2 sm:-left-4">
             <PhoneCard />
         </div>
 
         <div
-            className="float-slow absolute -right-4 top-[46%] hidden sm:block"
+            className="float-slow absolute -right-1 top-[42%] sm:-right-3 sm:top-[46%]"
             style={{ animationDelay: '1.6s' }}
         >
             <AiCard />

@@ -45,10 +45,10 @@ const SolutionDetailPage = () => {
 
             {/* Overview + audience rail */}
             <Section tone="light">
-                <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+                <div className="grid gap-10 md:gap-12 lg:grid-cols-12 lg:gap-14 xl:gap-16">
                     <div className="lg:col-span-7">
                         <SectionHeading align="left" eyebrow="Overview" title={`What ${solution.name} does`} />
-                        <p className="mt-5 text-base leading-relaxed text-slate-600">{solution.summary}</p>
+                        <p className="text-lead mt-5 text-slate-600">{solution.summary}</p>
 
                         {solution.note && (
                             <div className="mt-7 flex gap-3 rounded-xl border-l-4 border-brand-500 bg-brand-50/70 p-4">
@@ -92,7 +92,7 @@ const SolutionDetailPage = () => {
                                 <h3 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">
                                     Branches covered
                                 </h3>
-                                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                                <div className="mt-4 grid gap-3 xs:grid-cols-2">
                                     {solution.branches.map((b, i) => (
                                         <Reveal key={b.name} delay={(i % 2) * 70}>
                                             <div className="h-full rounded-xl border border-slate-200 p-4">
@@ -187,7 +187,7 @@ const SolutionDetailPage = () => {
                     lead={`Everything ${solution.name} does, in plain terms.`}
                 />
 
-                <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="mt-10 grid gap-4 xs:grid-cols-2 sm:mt-12 lg:grid-cols-3">
                     {solution.features.map((f, i) => (
                         <Reveal key={f.title} delay={(i % 3) * 90} from="up">
                             <div className="card card-hover group h-full p-6">
@@ -214,7 +214,7 @@ const SolutionDetailPage = () => {
                     lead="The sequence a real job follows, start to finish."
                 />
 
-                <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:gap-16">
+                <div className="mt-10 grid gap-10 sm:mt-14 md:gap-12 lg:grid-cols-12 lg:gap-14 xl:gap-16">
                     <div className="lg:col-span-7">
                         {solution.steps.map((s, i) => (
                             <Reveal key={s.title} delay={i * 100} from="left">
@@ -263,7 +263,7 @@ const SolutionDetailPage = () => {
                     lead="These share the same data, so nothing has to be re-entered between them."
                 />
 
-                <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="mt-10 grid gap-4 xs:grid-cols-2 sm:mt-12 sm:gap-5 lg:grid-cols-3">
                     {related.map((r, i) => {
                         const rp = getSolutionImage(r.slug);
                         return (

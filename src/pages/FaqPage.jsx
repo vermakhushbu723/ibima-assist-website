@@ -92,7 +92,7 @@ const FaqPage = () => {
                     title="Pick the shortest route to a real answer"
                 />
 
-                <div className="mx-auto mt-12 grid max-w-4xl gap-5 sm:grid-cols-3">
+                <div className="mx-auto mt-10 grid max-w-4xl gap-4 xs:grid-cols-2 sm:mt-12 sm:gap-5 md:grid-cols-3">
                     {[
                         {
                             icon: 'phone',
@@ -122,19 +122,25 @@ const FaqPage = () => {
                                     <Icon name={c.icon} className="h-5 w-5" strokeWidth={1.8} />
                                 </span>
                                 <h3 className="mt-4 text-base font-bold text-ink">{c.title}</h3>
-                                <p className="mt-1 text-sm font-medium text-brand-600">{c.body}</p>
+                                <p className="mt-1 break-all text-sm font-medium text-brand-600">{c.body}</p>
                                 <p className="mt-1.5 text-xs text-slate-500">{c.sub}</p>
                             </>
                         );
 
+                        // Three cards in a two-column grid leaves an orphan, so
+                        // the last one spans both until md gives it a column.
                         return (
-                            <Reveal key={c.title} delay={i * 90}>
+                            <Reveal
+                                key={c.title}
+                                delay={i * 90}
+                                className="xs:last:col-span-2 md:last:col-span-1"
+                            >
                                 {c.to ? (
-                                    <Link to={c.to} className="card card-hover flex h-full flex-col p-6">
+                                    <Link to={c.to} className="card card-hover flex h-full flex-col p-5 sm:p-6">
                                         {inner}
                                     </Link>
                                 ) : (
-                                    <a href={c.href} className="card card-hover flex h-full flex-col p-6">
+                                    <a href={c.href} className="card card-hover flex h-full flex-col p-5 sm:p-6">
                                         {inner}
                                     </a>
                                 )}

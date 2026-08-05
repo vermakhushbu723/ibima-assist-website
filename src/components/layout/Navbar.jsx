@@ -60,11 +60,13 @@ const Navbar = () => {
                         : 'border-b border-transparent bg-transparent'
                 }`}
             >
-                <div className="container-page flex h-16 items-center justify-between gap-4 lg:h-[4.5rem]">
+                <div className="container-page flex h-14 items-center justify-between gap-3 xs:h-16 lg:h-[4.5rem]">
                     <BrandLogo variant={solid ? 'dark' : 'light'} />
 
-                    {/* Desktop nav */}
-                    <nav className="hidden items-center gap-0.5 lg:flex">
+                    {/* Desktop nav — the seven links plus two actions need
+                        roughly 1024px before they stop crowding, so the
+                        drawer covers everything below that. */}
+                    <nav className="hidden items-center gap-0.5 lg:flex xl:gap-1">
                         {NAV_LINKS.map((link) =>
                             link.to === '/solutions' ? (
                                 <div
@@ -87,9 +89,9 @@ const Navbar = () => {
                                     </NavLink>
 
                                     {solutionsOpen && (
-                                        <div className="absolute left-1/2 top-full w-[40rem] -translate-x-1/2 pt-3">
+                                        <div className="absolute left-1/2 top-full w-[min(40rem,calc(100vw-3rem))] -translate-x-1/2 pt-3">
                                             <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_28px_60px_-24px_rgba(4,20,46,0.45)] page-in">
-                                                <div className="grid grid-cols-2 gap-1 p-2.5">
+                                                <div className="grid grid-cols-1 gap-1 p-2.5 sm:grid-cols-2">
                                                     {SOLUTIONS.map((s, i) => (
                                                         <Link
                                                             key={s.slug}
@@ -175,7 +177,7 @@ const Navbar = () => {
                             setDrawerOpen(true);
                         }}
                         aria-label="Open menu"
-                        className={`grid h-10 w-10 place-items-center rounded-lg transition lg:hidden ${
+                        className={`-mr-1.5 grid h-11 w-11 shrink-0 place-items-center rounded-lg transition lg:hidden ${
                             solid ? 'text-ink hover:bg-slate-100' : 'text-white hover:bg-white/10'
                         }`}
                     >

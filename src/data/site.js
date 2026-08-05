@@ -6,13 +6,68 @@
 // =============================================================
 
 export const BRAND = {
+    // The public-facing product name.
     name: 'IBima Assist',
     // Split for the two-tone wordmark in <BrandLogo />.
     nameLead: 'IBima',
     nameTrail: 'Assist',
     tagline: 'Claims, digitised end to end',
-    legalName: 'IBima Assist Technologies', // TODO: confirm registered entity name
+    // The company that owns and operates the platform. Shown as
+    // "Powered by …" in the header strip and throughout the footer.
+    operator: 'VroomSync Expertise Pvt Ltd',
+    operatorShort: 'VroomSync Expertise',
     established: 2018,
+};
+
+// =============================================================
+// LEGAL / DECLARATIONS
+// Rendered in the footer's legal band on every page.
+// TODO: the registration identifiers below are placeholders —
+// replace with VroomSync Expertise Pvt Ltd's actual CIN, GSTIN
+// and registered address before the site goes live.
+// =============================================================
+export const LEGAL = {
+    cin: 'CIN: U00000XX0000PTC000000',
+    gstin: 'GSTIN: 00XXXXX0000X0XX',
+    // Short line under the wordmark and in the footer bottom bar.
+    ownership: `${BRAND.name} is a product of ${BRAND.operator}.`,
+
+    declarations: [
+        {
+            title: 'Ownership & trademarks',
+            body: `“${BRAND.name}” and the ${BRAND.name} mark are trademarks of ${BRAND.operator}. All software, source code, designs, interfaces, workflows, documentation and assessment models forming part of the platform are the exclusive intellectual property of ${BRAND.operator} and are protected under applicable copyright and trademark law.`,
+        },
+        {
+            title: 'Nature of services',
+            body: `${BRAND.operator} is a technology and claims-services provider. It is not an insurance company, insurance broker or corporate agent, does not underwrite risk, does not sell or solicit insurance policies, and does not decide the admissibility or quantum of any claim. All underwriting and settlement decisions rest solely with the insurer and its authorised assessors.`,
+        },
+        {
+            title: 'Assessment outputs',
+            body: 'Damage detection, severity grading and cost estimates produced by the platform are decision-support outputs intended for review by a qualified surveyor or loss assessor. They do not constitute a survey report, a loss assessment, or an offer of settlement, and must not be relied upon as such without that review.',
+        },
+        {
+            title: 'Data & privacy',
+            body: 'Claim data, photographs, location metadata and personal information processed through the platform are handled on behalf of the contracting insurer or intermediary in accordance with applicable Indian data-protection law and the terms of the relevant services agreement. Access is role-restricted and every action is logged.',
+        },
+        {
+            title: 'Third-party marks',
+            body: 'Insurer, broker, workshop and other third-party names or marks referenced anywhere on this site remain the property of their respective owners and are used for identification purposes only. Their use does not imply endorsement, partnership or affiliation unless expressly stated.',
+        },
+        {
+            title: 'Content on this site',
+            body: 'Information on this website is provided for general information about the platform and its capabilities. It does not form part of any contract, quotation or warranty. Features, specifications and availability may change without notice.',
+        },
+    ],
+
+    // Bottom-bar links. TODO: point at the real policy documents once
+    // they exist — they currently route to the contact page.
+    policies: [
+        { label: 'Privacy Policy', to: '/contact' },
+        { label: 'Terms of Use', to: '/contact' },
+        { label: 'Cookie Policy', to: '/contact' },
+        { label: 'Disclaimer', to: '/contact' },
+        { label: 'Grievance Redressal', to: '/contact' },
+    ],
 };
 
 export const NAV_LINKS = [

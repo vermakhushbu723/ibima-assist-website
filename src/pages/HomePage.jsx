@@ -31,19 +31,19 @@ const Hero = () => (
             <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/70" />
         </div>
 
-        {/* Top padding clears the fixed navbar (4rem / 4.5rem tall) with a
-            small breathing gap — no more. */}
-        <div className="container-page relative z-10 grid items-center gap-14 pb-24 pt-24 sm:pt-26 lg:grid-cols-12 lg:gap-10 lg:pb-32 lg:pt-28">
+        {/* Top padding clears the fixed navbar (3.5rem / 4rem / 4.5rem
+            tall by breakpoint) with a small breathing gap — no more. */}
+        <div className="container-page relative z-10 grid items-center gap-10 pb-16 pt-22 xs:pt-24 sm:gap-14 sm:pb-24 sm:pt-26 lg:grid-cols-12 lg:gap-10 lg:pb-32 lg:pt-28">
             {/* Copy */}
             <div className="lg:col-span-6">
                 <Reveal from="left">
-                    <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-200 ring-1 ring-white/15">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-brand-200 ring-1 ring-white/15 sm:px-3.5 sm:tracking-[0.14em]">
                         <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-400" />
                         Claims-as-a-Service platform
                     </span>
                 </Reveal>
 
-                <h1 className="mt-6 text-[2.4rem] font-extrabold leading-[1.06] tracking-tight text-white sm:text-5xl lg:text-[3.5rem]">
+                <h1 className="text-display mt-5 font-extrabold text-white sm:mt-6">
                     <WordReveal text="Motor claims," />{' '}
                     <span className="text-gradient">
                         <WordReveal text="settled on evidence" delay={180} />
@@ -52,7 +52,7 @@ const Hero = () => (
                 </h1>
 
                 <Reveal delay={180} from="left">
-                    <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
+                    <p className="text-lead mt-5 max-w-xl text-slate-300 sm:mt-6">
                         We put a disciplined capture process in the hands of whoever is standing next to the vehicle,
                         an AI assessment engine behind whoever has to price the loss, and one console that carries the
                         file from first notice of loss to settlement.
@@ -60,7 +60,7 @@ const Hero = () => (
                 </Reveal>
 
                 <Reveal delay={260} from="left">
-                    <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                    <div className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row">
                         <Link
                             to="/contact"
                             className="sheen group inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_18px_44px_-16px_rgba(1,160,254,0.95)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-400"
@@ -82,11 +82,14 @@ const Hero = () => (
                 </Reveal>
 
                 <Reveal delay={340} from="up">
-                    <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-white/10 pt-7">
+                    <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2.5 border-t border-white/10 pt-6 sm:mt-10 sm:gap-x-6 sm:gap-y-3 sm:pt-7">
                         {['Motor & non-motor claims', 'Web, weblink and native app', 'Built for Indian general insurance'].map(
                             (point) => (
-                                <span key={point} className="inline-flex items-center gap-2 text-sm text-slate-300">
-                                    <Icon name="check" className="h-4 w-4 text-brand-400" strokeWidth={2.6} />
+                                <span
+                                    key={point}
+                                    className="inline-flex items-center gap-2 text-[13px] text-slate-300 sm:text-sm"
+                                >
+                                    <Icon name="check" className="h-4 w-4 shrink-0 text-brand-400" strokeWidth={2.6} />
                                     {point}
                                 </span>
                             ),
@@ -98,19 +101,19 @@ const Hero = () => (
             {/* Visual */}
             <Reveal delay={200} from="scale" className="lg:col-span-6">
                 <Parallax speed={0.06}>
-                    <PlatformVisual className="mt-4 lg:mt-0" />
+                    <PlatformVisual className="mt-2 lg:mt-0" />
                 </Parallax>
             </Reveal>
         </div>
 
         {/* Capability marquee */}
-        <div className="relative z-10 border-t border-white/10 bg-black/25 py-4 backdrop-blur-sm">
+        <div className="relative z-10 border-t border-white/10 bg-black/25 py-3.5 backdrop-blur-sm sm:py-4">
             <div className="marquee-mask overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]">
                 <div className="marquee-track">
                     {[...CAPABILITY_STRIP, ...CAPABILITY_STRIP].map((item, i) => (
                         <span
                             key={`${item}-${i}`}
-                            className="inline-flex shrink-0 items-center gap-2.5 px-6 text-sm font-medium text-slate-400"
+                            className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap px-4 text-[13px] font-medium text-slate-400 sm:gap-2.5 sm:px-6 sm:text-sm"
                         >
                             <span className="h-1 w-1 rounded-full bg-brand-400" />
                             {item}
@@ -124,15 +127,20 @@ const Hero = () => (
 
 // ── Stats ───────────────────────────────────────────────────────
 const Stats = () => (
-    <section className="relative z-20 bg-white pt-14 sm:pt-16">
+    <section className="relative z-20 bg-white pt-12 sm:pt-16">
         <div className="container-page">
-            <div className="grid grid-cols-2 divide-slate-100 rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_28px_60px_-32px_rgba(4,20,46,0.4)] sm:p-3 lg:grid-cols-4 lg:divide-x">
+            <div className="grid grid-cols-1 divide-y divide-slate-100 rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_28px_60px_-32px_rgba(4,20,46,0.4)] xs:grid-cols-2 xs:divide-y-0 sm:p-3 lg:grid-cols-4 lg:divide-x">
                 {STATS.map((s, i) => (
-                    <Reveal key={s.label} delay={i * 90} from="scale" className="px-4 py-5 text-center lg:px-6">
-                        <p className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+                    <Reveal
+                        key={s.label}
+                        delay={i * 90}
+                        from="scale"
+                        className="px-4 py-4 text-center sm:py-5 lg:px-6"
+                    >
+                        <p className="text-2xl font-extrabold tracking-tight text-ink xs:text-3xl sm:text-4xl">
                             <StatCounter value={s.value} suffix={s.suffix} />
                         </p>
-                        <p className="mt-1.5 text-sm font-semibold text-brand-600">{s.label}</p>
+                        <p className="mt-1.5 text-[13px] font-semibold text-brand-600 sm:text-sm">{s.label}</p>
                         <p className="mt-1 text-xs leading-relaxed text-slate-500">{s.sub}</p>
                     </Reveal>
                 ))}
@@ -144,7 +152,7 @@ const Stats = () => (
 // ── What we do ──────────────────────────────────────────────────
 const Intro = () => (
     <Section tone="light" className="pt-14 sm:pt-16">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="grid gap-10 md:gap-12 lg:grid-cols-12 lg:gap-14 xl:gap-16">
             <div className="lg:col-span-5">
                 <SectionHeading
                     align="left"
@@ -156,7 +164,7 @@ const Intro = () => (
                 <Reveal delay={140} from="left">
                     <Link
                         to="/about"
-                        className="group mt-7 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 transition hover:text-brand-700"
+                        className="group mt-6 inline-flex items-center gap-2 py-2 text-sm font-semibold text-brand-600 transition hover:text-brand-700"
                     >
                         More about the company
                         <Icon
@@ -189,7 +197,7 @@ const Intro = () => (
             </div>
 
             <div className="lg:col-span-7">
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-4 xs:grid-cols-2">
                     {[
                         {
                             icon: 'camera',
@@ -224,20 +232,20 @@ const Intro = () => (
                     ))}
 
                     {/* Photo tile completing the grid */}
-                    <Reveal delay={360} from="up" className="sm:col-span-2">
+                    <Reveal delay={360} from="up" className="xs:col-span-2">
                         <div className="group relative overflow-hidden rounded-2xl">
                             <Img
                                 base={PHOTOS.technician}
                                 alt="Technician working on a vehicle inside a repair workshop"
-                                ratio="aspect-[21/9]"
+                                ratio="aspect-[16/10] sm:aspect-[21/9]"
                                 zoom
                             >
-                                <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/45 to-transparent" />
-                                <div className="absolute inset-y-0 left-0 flex max-w-md flex-col justify-center p-6 sm:p-8">
-                                    <p className="text-lg font-bold text-white sm:text-xl">
+                                <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/55 to-ink/10" />
+                                <div className="absolute inset-y-0 left-0 flex max-w-md flex-col justify-center p-5 sm:p-8">
+                                    <p className="text-h3 font-bold text-white">
                                         Built for the workshop floor, not the boardroom
                                     </p>
-                                    <p className="mt-2 text-sm leading-relaxed text-slate-300">
+                                    <p className="mt-2 text-[13px] leading-relaxed text-slate-300 sm:text-sm">
                                         Basements, glare, bad signal and a customer in a hurry — the product is
                                         designed for those conditions.
                                     </p>
@@ -260,7 +268,7 @@ const SolutionsGrid = () => (
             lead="Seven modules that work on their own and work better together. Take the whole platform, or start with the one piece that is costing you the most time."
         />
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 xs:grid-cols-2 sm:mt-12 sm:gap-5 lg:grid-cols-3">
             {SOLUTIONS.map((s, i) => {
                 const photo = getSolutionImage(s.slug);
                 return (
@@ -278,16 +286,18 @@ const SolutionsGrid = () => (
                                 >
                                     <Icon name={s.icon} className="h-5 w-5" strokeWidth={1.8} />
                                 </span>
-                                <span className="absolute bottom-4 right-3 rounded-full bg-white/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur">
+                                <span className="absolute bottom-4 right-3 hidden max-w-[55%] truncate rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur xs:block">
                                     {s.short}
                                 </span>
                             </Img>
 
-                            <div className="flex flex-1 flex-col p-6">
-                                <h3 className="text-lg font-bold text-ink transition-colors group-hover:text-brand-600">
+                            <div className="flex flex-1 flex-col p-5 sm:p-6">
+                                <h3 className="text-h3 font-bold text-ink transition-colors group-hover:text-brand-600">
                                     {s.name}
                                 </h3>
-                                <p className="mt-2.5 flex-1 text-sm leading-relaxed text-slate-600">{s.tagline}</p>
+                                <p className="mt-2.5 flex-1 text-[13px] leading-relaxed text-slate-600 sm:text-sm">
+                                    {s.tagline}
+                                </p>
 
                                 <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600">
                                     Learn more
@@ -304,8 +314,8 @@ const SolutionsGrid = () => (
             })}
 
             {/* Trailing "everything else" card */}
-            <Reveal delay={180} from="up">
-                <Spotlight className="flex h-full flex-col justify-between rounded-2xl bg-gradient-to-br from-brand-900 to-ink p-6 text-white lg:p-7">
+            <Reveal delay={180} from="up" className="xs:col-span-2 lg:col-span-1">
+                <Spotlight className="flex h-full flex-col justify-between rounded-2xl bg-gradient-to-br from-brand-900 to-ink p-5 text-white sm:p-6 lg:p-7">
                     <div className="relative z-10">
                         <span className="grid h-11 w-11 place-items-center rounded-xl bg-white/10 ring-1 ring-white/20">
                             <Icon name="sparkles" className="h-5 w-5 text-brand-300" strokeWidth={1.8} />
@@ -343,7 +353,7 @@ const HowItWorks = () => (
             lead="Every claim moves through the same tracked sequence. At any moment you can say which stage a file is at, who owns it and how long it has been there."
         />
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-10 grid gap-6 xs:grid-cols-2 sm:mt-14 lg:grid-cols-5">
             {PROCESS.map((p, i) => (
                 <Reveal key={p.step} delay={i * 110} from="up" className="relative">
                     {i < PROCESS.length - 1 && (
@@ -366,7 +376,7 @@ const HowItWorks = () => (
 // ── Differentiators ─────────────────────────────────────────────
 const WhyUs = () => (
     <Section tone="light">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="grid gap-10 md:gap-12 lg:grid-cols-12 lg:gap-14 xl:gap-16">
             <div className="lg:col-span-5">
                 <SectionHeading
                     align="left"
@@ -378,7 +388,7 @@ const WhyUs = () => (
                 <Reveal delay={140} from="left">
                     <Link
                         to="/why-us"
-                        className="group mt-7 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 transition hover:text-brand-700"
+                        className="group mt-6 inline-flex items-center gap-2 py-2 text-sm font-semibold text-brand-600 transition hover:text-brand-700"
                     >
                         See the full comparison
                         <Icon
@@ -438,17 +448,17 @@ const BuiltFor = () => (
             lead="Everybody involved in a claim sees the same file — filtered to what their role should see, and nothing more."
         />
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 xs:grid-cols-2 sm:mt-12 lg:grid-cols-3">
             {AUDIENCES.map((a, i) => (
                 <Reveal key={a.title} delay={(i % 3) * 90} from="scale">
-                    <div className="card card-hover group h-full p-6">
+                    <div className="card card-hover group h-full p-5 sm:p-6">
                         <div className="flex items-center gap-3">
-                            <span className="grid h-10 w-10 place-items-center rounded-lg bg-ink text-white transition-all duration-500 group-hover:bg-brand-500 group-hover:scale-110">
+                            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-ink text-white transition-all duration-500 group-hover:scale-110 group-hover:bg-brand-500">
                                 <Icon name={a.icon} className="h-4.5 w-4.5" strokeWidth={1.8} />
                             </span>
-                            <h3 className="text-base font-bold text-ink">{a.title}</h3>
+                            <h3 className="text-[15px] font-bold text-ink sm:text-base">{a.title}</h3>
                         </div>
-                        <p className="mt-3.5 text-sm leading-relaxed text-slate-600">{a.detail}</p>
+                        <p className="mt-3.5 text-[13px] leading-relaxed text-slate-600 sm:text-sm">{a.detail}</p>
                     </div>
                 </Reveal>
             ))}
@@ -463,12 +473,12 @@ const BuiltFor = () => (
                     ratio="aspect-[21/9] sm:aspect-[3/1]"
                     zoom
                 >
-                    <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/55 to-ink/20" />
-                    <div className="absolute inset-y-0 left-0 flex max-w-xl flex-col justify-center p-6 sm:p-10">
-                        <p className="text-xl font-extrabold tracking-tight text-white sm:text-2xl">
+                    <div className="absolute inset-0 bg-gradient-to-r from-ink/92 via-ink/62 to-ink/20" />
+                    <div className="absolute inset-y-0 left-0 flex max-w-xl flex-col justify-center p-5 sm:p-8 lg:p-10">
+                        <p className="text-h3 font-extrabold tracking-tight text-white">
                             The same file, wherever the claim is being worked
                         </p>
-                        <p className="mt-2.5 text-sm leading-relaxed text-slate-300">
+                        <p className="mt-2 hidden text-[13px] leading-relaxed text-slate-300 xs:block sm:mt-2.5 sm:text-sm">
                             Workshop, surveyor, agent and self-service capture all produce one structured record — so
                             nothing is re-keyed and nothing is lost between hands.
                         </p>
@@ -483,23 +493,23 @@ const BuiltFor = () => (
 const AppStrip = () => (
     <Section tone="light">
         <div className="overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-50 to-brand-50/60">
-            <div className="grid items-center gap-10 p-8 sm:p-12 lg:grid-cols-12 lg:gap-14">
+            <div className="grid items-center gap-10 p-6 xs:p-8 sm:p-10 lg:grid-cols-12 lg:gap-14 lg:p-12">
                 <div className="lg:col-span-6">
                     <Reveal from="left">
-                        <span className="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-700 ring-1 ring-brand-100">
+                        <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-brand-700 ring-1 ring-brand-100 sm:px-3.5 sm:tracking-[0.14em]">
                             <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
                             Android &amp; iOS
                         </span>
-                        <h2 className="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-ink sm:text-4xl">
+                        <h2 className="text-h2 mt-4 font-extrabold text-ink sm:mt-5">
                             The same survey, in your surveyor&rsquo;s pocket
                         </h2>
-                        <p className="mt-4 max-w-xl text-base leading-relaxed text-slate-600">
+                        <p className="text-lead mt-4 max-w-xl text-slate-600">
                             A native app that uses the device&rsquo;s own camera, GPS and storage. Photographs are
                             written to the phone first and uploaded when there is a connection — so a workshop basement
                             with no signal does not cost you the survey.
                         </p>
 
-                        <ul className="mt-7 grid gap-3 sm:grid-cols-2">
+                        <ul className="mt-6 grid gap-3 xs:grid-cols-2 sm:mt-7">
                             {[
                                 'Captures without a connection',
                                 'Orientation-locked framing',
@@ -536,7 +546,7 @@ const AppStrip = () => (
                 </div>
 
                 <Reveal delay={160} from="right" className="lg:col-span-6">
-                    <div className="relative">
+                    <div className="relative pb-2 sm:pb-6">
                         {/* Field photo behind */}
                         <div className="group overflow-hidden rounded-2xl">
                             <Img
@@ -549,9 +559,10 @@ const AppStrip = () => (
                             </Img>
                         </div>
 
-                        {/* Checklist card floating over it */}
-                        <div className="float-slow absolute -bottom-6 -right-2 w-[190px] rounded-2xl bg-white p-4 shadow-[0_24px_50px_-24px_rgba(4,20,46,0.6)] ring-1 ring-slate-900/5 sm:-right-4 sm:w-[210px]">
-                            <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+                        {/* Checklist card floating over it. Offsets stay
+                            inside the page gutter at every width. */}
+                        <div className="float-slow absolute bottom-3 right-3 w-[150px] rounded-2xl bg-white p-3 shadow-[0_24px_50px_-24px_rgba(4,20,46,0.6)] ring-1 ring-slate-900/5 xs:w-[172px] xs:p-4 sm:-bottom-5 sm:-right-3 sm:w-[200px]">
+                            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
                                 Capture progress
                             </p>
                             <ul className="mt-3 space-y-2">
