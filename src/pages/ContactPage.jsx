@@ -6,6 +6,7 @@ import PageHero from '../components/ui/PageHero';
 import Reveal from '../components/ui/Reveal';
 import Icon from '../components/ui/Icon';
 import Img from '../components/ui/Img';
+import SectionBanner from '../components/ui/SectionBanner';
 import { Spotlight } from '../components/ui/Motion';
 import usePageMeta from '../hooks/usePageMeta';
 import { CONTACT } from '../data/site';
@@ -281,6 +282,16 @@ const ContactPage = () => {
                     tone="deep"
                     eyebrow="What happens next"
                     title="Three steps, no sales theatre"
+                />
+
+                <SectionBanner
+                    name="nextSteps"
+                    caption="A short call, a walkthrough on your data, a scoped proposal"
+                    sub="No demo theatre, no discovery marathon. Three steps and you know whether this fits."
+                    ratio="aspect-[16/10] xs:aspect-[21/9] sm:aspect-[16/5]"
+                    align="center"
+                    className="mt-10"
+                    delay={100}
                 />
 
                 <div className="mt-10 grid gap-5 sm:mt-14 sm:gap-6 md:grid-cols-3">

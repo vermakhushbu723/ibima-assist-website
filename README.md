@@ -22,6 +22,8 @@ npm run build             # -> dist/
 npm run preview           # serve the built output
 npm run smoke             # render every page server-side; fails on any runtime error
 npm run audit:responsive  # after a build: load every page at 10 device widths
+npm run audit:images      # after a build: fail if any section has no photograph
+npm run report:images     # after a build: print which photo each section uses
 ```
 
 `audit:responsive` runs against `dist/`, so build first. It drives the Chrome or Edge already
@@ -116,6 +118,23 @@ nothing hard-codes either name.
   don't pull a 1600px file, native lazy loading below the fold, a brand-tinted placeholder while
   the image arrives, and a fade-in once it does. The URLs are built by `img()` in
   `src/data/images.js`, which appends Unsplash's width/quality/format parameters.
+- **Every section carries a photograph of its own subject**, so the page is scannable before it's
+  read. `src/data/images.js` maps each one: `SOLUTION_IMAGES` per module, `SOLUTION_DETAIL_IMAGES`
+  for a module's capabilities and outcome, `PROCESS_IMAGES` per claim stage, `AUDIENCE_IMAGES` per
+  persona, `BRANCH_IMAGES` per non-motor line, `getModeImage()` per capture channel, and
+  `SECTION_IMAGES` for everything else. `<SectionBanner name="…">` renders the wide bands.
+
+  Two checks back this up, and they answer different questions:
+  - `npm run audit:images` — **does every section have an image?** Fails the build if one is bare.
+    Walks the rendered DOM, so a section added later can't slip through.
+  - `npm run report:images` — **is it the right image?** Prints every section with the photo ID and
+    alt text it uses, and flags any photograph leading two sections on the same page. Read the
+    output; a machine can't judge whether a picture matches a heading, but it can lay the pairing
+    out so you can. Hero backdrops are marked `~` and excluded from the repeat check — they render
+    at ~15% opacity as texture, not as the section's picture.
+
+  Each `PHOTOS` entry carries a comment describing what the photograph actually shows. Keep that
+  accurate — it is the only way a later swap can be checked without re-downloading everything.
 - **Motion is CSS-driven, no animation library.** `src/index.css` holds the keyframes and classes;
   `src/components/ui/Motion.jsx` and `Reveal.jsx` only feed them a number or a class:
   `<Reveal from="up|down|left|right|scale|blur">` for scroll entrances, `<Parallax>` for depth,

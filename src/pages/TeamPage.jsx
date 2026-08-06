@@ -4,6 +4,7 @@ import PageHero, { HeroPill } from '../components/ui/PageHero';
 import Reveal from '../components/ui/Reveal';
 import Icon from '../components/ui/Icon';
 import Img from '../components/ui/Img';
+import SectionBanner from '../components/ui/SectionBanner';
 import CTABand from '../components/ui/CTABand';
 import { Spotlight } from '../components/ui/Motion';
 import usePageMeta from '../hooks/usePageMeta';
@@ -82,6 +83,15 @@ const TeamPage = () => {
                     eyebrow="How the team is built"
                     title="Four disciplines, one product"
                     lead="Each of these has veto over its own area, which is why the workflow matches how claims really move and the AI does not overreach."
+                />
+
+                <SectionBanner
+                    name="capabilities"
+                    caption="Claims people and engineers, at the same desk"
+                    sub="Insurance software fails when it is written by people who have never had to close a file."
+                    ratio="aspect-[16/10] xs:aspect-[21/9] sm:aspect-[16/5]"
+                    className="mt-10"
+                    delay={100}
                 />
 
                 <div className="mt-10 grid gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-5">
@@ -166,6 +176,22 @@ const TeamPage = () => {
                             title="You get the people who built it"
                             lead="Onboarding is run by the same team that writes the product, not handed to a separate implementation vendor."
                         />
+
+                        <Reveal delay={120} from="left" className="mt-8">
+                            <div className="group overflow-hidden rounded-2xl ring-1 ring-white/10">
+                                <Img
+                                    base={PHOTOS.handshake}
+                                    alt="Two people shaking hands to start work together"
+                                    ratio="aspect-[16/10]"
+                                    zoom
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/35 to-transparent" />
+                                    <p className="absolute inset-x-0 bottom-0 p-5 text-sm font-semibold text-white">
+                                        One team, from the first call to live claim traffic
+                                    </p>
+                                </Img>
+                            </div>
+                        </Reveal>
                     </div>
 
                     <div className="grid gap-4 xs:grid-cols-2 lg:col-span-7">

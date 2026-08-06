@@ -4,13 +4,14 @@ import Section, { SectionHeading } from '../components/ui/Section';
 import Reveal from '../components/ui/Reveal';
 import Icon from '../components/ui/Icon';
 import Img from '../components/ui/Img';
+import SectionBanner from '../components/ui/SectionBanner';
 import StatCounter from '../components/ui/StatCounter';
 import PlatformVisual from '../components/ui/PlatformVisual';
 import CTABand from '../components/ui/CTABand';
 import { Parallax, Spotlight, WordReveal } from '../components/ui/Motion';
 import usePageMeta from '../hooks/usePageMeta';
 import { SOLUTIONS } from '../data/solutions';
-import { getSolutionImage, PHOTOS } from '../data/images';
+import { AUDIENCE_IMAGES, getSolutionImage, PHOTOS, PROCESS_IMAGES } from '../data/images';
 import { AUDIENCES, CAPABILITY_STRIP, DIFFERENTIATORS, PROCESS, STATS } from '../data/content';
 
 // ── Hero ────────────────────────────────────────────────────────
@@ -145,6 +146,15 @@ const Stats = () => (
                     </Reveal>
                 ))}
             </div>
+
+            <SectionBanner
+                name="stats"
+                caption="Everything above, measured in one place"
+                sub="Volumes, ageing and stage-wise turnaround across the whole book — live, not in a month-end spreadsheet."
+                ratio="aspect-[16/10] xs:aspect-[21/9] sm:aspect-[16/5]"
+                className="mt-5"
+                delay={120}
+            />
         </div>
     </section>
 );
@@ -353,22 +363,33 @@ const HowItWorks = () => (
             lead="Every claim moves through the same tracked sequence. At any moment you can say which stage a file is at, who owns it and how long it has been there."
         />
 
-        <div className="mt-10 grid gap-6 xs:grid-cols-2 sm:mt-14 lg:grid-cols-5">
-            {PROCESS.map((p, i) => (
-                <Reveal key={p.step} delay={i * 110} from="up" className="relative">
-                    {i < PROCESS.length - 1 && (
-                        <span className="pointer-events-none absolute left-[3.4rem] top-6 hidden h-px w-[calc(100%-2.6rem)] bg-gradient-to-r from-brand-500/50 to-transparent lg:block" />
-                    )}
+        {/* Each stage carries the photograph of what actually happens
+            at it, so the sequence reads before the text does. */}
+        <div className="mt-10 grid gap-5 xs:grid-cols-2 sm:mt-14 lg:grid-cols-5">
+            {PROCESS.map((p, i) => {
+                const photo = PROCESS_IMAGES[i];
+                return (
+                    <Reveal key={p.step} delay={i * 110} from="up" className="relative">
+                        {i < PROCESS.length - 1 && (
+                            <span className="pointer-events-none absolute -right-3 top-[4.5rem] hidden h-px w-6 bg-gradient-to-r from-brand-500/60 to-transparent lg:block" />
+                        )}
 
-                    <Spotlight className="relative rounded-2xl p-1">
-                        <span className="relative z-10 grid h-12 w-12 place-items-center rounded-xl border border-brand-400/30 bg-brand-500/15 text-sm font-bold text-brand-300 backdrop-blur transition-transform duration-500 hover:scale-110">
-                            {p.step}
-                        </span>
-                        <h3 className="relative z-10 mt-4 text-base font-bold text-white">{p.title}</h3>
-                        <p className="relative z-10 mt-2 text-sm leading-relaxed text-slate-400">{p.detail}</p>
-                    </Spotlight>
-                </Reveal>
-            ))}
+                        <Spotlight className="group h-full overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] backdrop-blur transition-transform duration-500 hover:-translate-y-1">
+                            <Img base={photo.base} alt={photo.alt} ratio="aspect-[16/10]" zoom>
+                                <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
+                                <span className="absolute bottom-2.5 left-3 grid h-9 w-9 place-items-center rounded-lg border border-brand-400/40 bg-brand-500/25 text-xs font-bold text-brand-100 backdrop-blur">
+                                    {p.step}
+                                </span>
+                            </Img>
+
+                            <div className="relative z-10 p-4 sm:p-5">
+                                <h3 className="text-base font-bold text-white">{p.title}</h3>
+                                <p className="mt-1.5 text-[13px] leading-relaxed text-slate-400">{p.detail}</p>
+                            </div>
+                        </Spotlight>
+                    </Reveal>
+                );
+            })}
         </div>
     </Section>
 );
@@ -448,20 +469,34 @@ const BuiltFor = () => (
             lead="Everybody involved in a claim sees the same file — filtered to what their role should see, and nothing more."
         />
 
+        {/* One photograph per audience — an insurer's floor, a surveyor
+            at a car, a broker's handshake — so each card is recognisable
+            at a glance. */}
         <div className="mt-10 grid gap-4 xs:grid-cols-2 sm:mt-12 lg:grid-cols-3">
-            {AUDIENCES.map((a, i) => (
-                <Reveal key={a.title} delay={(i % 3) * 90} from="scale">
-                    <div className="card card-hover group h-full p-5 sm:p-6">
-                        <div className="flex items-center gap-3">
-                            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-ink text-white transition-all duration-500 group-hover:scale-110 group-hover:bg-brand-500">
-                                <Icon name={a.icon} className="h-4.5 w-4.5" strokeWidth={1.8} />
-                            </span>
-                            <h3 className="text-[15px] font-bold text-ink sm:text-base">{a.title}</h3>
+            {AUDIENCES.map((a, i) => {
+                const photo = AUDIENCE_IMAGES[a.title];
+                return (
+                    <Reveal key={a.title} delay={(i % 3) * 90} from="scale">
+                        <div className="card card-hover group flex h-full flex-col overflow-hidden">
+                            {photo && (
+                                <Img base={photo.base} alt={photo.alt} ratio="aspect-[16/9]" zoom>
+                                    <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent" />
+                                    <span className="absolute bottom-3 left-3 grid h-10 w-10 place-items-center rounded-lg bg-white/15 text-white ring-1 ring-white/25 backdrop-blur transition-transform duration-500 group-hover:scale-110">
+                                        <Icon name={a.icon} className="h-4.5 w-4.5" strokeWidth={1.8} />
+                                    </span>
+                                </Img>
+                            )}
+
+                            <div className="flex flex-1 flex-col p-5 sm:p-6">
+                                <h3 className="text-[15px] font-bold text-ink sm:text-base">{a.title}</h3>
+                                <p className="mt-2 text-[13px] leading-relaxed text-slate-600 sm:text-sm">
+                                    {a.detail}
+                                </p>
+                            </div>
                         </div>
-                        <p className="mt-3.5 text-[13px] leading-relaxed text-slate-600 sm:text-sm">{a.detail}</p>
-                    </div>
-                </Reveal>
-            ))}
+                    </Reveal>
+                );
+            })}
         </div>
 
         {/* Wide photo band */}

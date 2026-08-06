@@ -9,7 +9,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "smoke": "vite build --ssr scripts/smoke.jsx --outDir .smoke --emptyOutDir --logLevel warn && node .smoke/smoke.js",
-    "audit:responsive": "node scripts/responsive-audit.mjs"
+    "audit:responsive": "node scripts/responsive-audit.mjs",
+    "audit:images": "node scripts/image-coverage.mjs",
+    "report:images": "node scripts/image-map-report.mjs"
   },
   "dependencies": {
     "@ant-design/icons": "^6.2.2",

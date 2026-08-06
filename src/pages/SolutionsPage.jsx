@@ -9,7 +9,8 @@ import CTABand from '../components/ui/CTABand';
 import { Spotlight } from '../components/ui/Motion';
 import usePageMeta from '../hooks/usePageMeta';
 import { SOLUTIONS } from '../data/solutions';
-import { getSolutionImage, PHOTOS } from '../data/images';
+import SectionBanner from '../components/ui/SectionBanner';
+import { getSolutionImage, PHOTOS, PROCESS_IMAGES } from '../data/images';
 import { PROCESS } from '../data/content';
 
 const SolutionsPage = () => {
@@ -47,19 +48,28 @@ const SolutionsPage = () => {
                     where a 5-across scroller is more work than it's worth. */}
                 <div className="mt-10 -mx-[clamp(1rem,4vw,2rem)] overflow-x-auto px-[clamp(1rem,4vw,2rem)] pb-2 sm:mt-12">
                     <div className="grid gap-3 xs:grid-cols-2 sm:flex sm:min-w-[820px] sm:items-stretch">
-                        {PROCESS.map((p, i) => (
-                            <Reveal key={p.step} delay={i * 90} from="right" className="sm:flex-1">
-                                <div className="group flex h-full flex-col rounded-2xl border border-slate-200 bg-slate-50/70 p-5 transition-all duration-400 hover:-translate-y-1 hover:border-brand-200 hover:bg-white hover:shadow-[0_18px_40px_-20px_rgba(4,20,46,0.35)]">
-                                    <div className="flex items-center gap-2.5">
-                                        <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-500 text-xs font-bold text-white transition-transform duration-400 group-hover:scale-110">
-                                            {p.step}
-                                        </span>
-                                        <h3 className="text-sm font-bold text-ink">{p.title}</h3>
+                        {PROCESS.map((p, i) => {
+                            const photo = PROCESS_IMAGES[i];
+                            return (
+                                <Reveal key={p.step} delay={i * 90} from="right" className="sm:flex-1">
+                                    <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/70 transition-all duration-400 hover:-translate-y-1 hover:border-brand-200 hover:bg-white hover:shadow-[0_18px_40px_-20px_rgba(4,20,46,0.35)]">
+                                        <Img base={photo.base} alt={photo.alt} ratio="aspect-[16/10]" zoom>
+                                            <div className="absolute inset-0 bg-gradient-to-t from-ink/80 to-transparent" />
+                                            <span className="absolute bottom-2.5 left-3 grid h-8 w-8 place-items-center rounded-lg bg-brand-500 text-xs font-bold text-white transition-transform duration-400 group-hover:scale-110">
+                                                {p.step}
+                                            </span>
+                                        </Img>
+
+                                        <div className="flex flex-1 flex-col p-4">
+                                            <h3 className="text-sm font-bold text-ink">{p.title}</h3>
+                                            <p className="mt-2 flex-1 text-[13px] leading-relaxed text-slate-600">
+                                                {p.detail}
+                                            </p>
+                                        </div>
                                     </div>
-                                    <p className="mt-3 flex-1 text-[13px] leading-relaxed text-slate-600">{p.detail}</p>
-                                </div>
-                            </Reveal>
-                        ))}
+                                </Reveal>
+                            );
+                        })}
                     </div>
                 </div>
             </Section>
@@ -70,6 +80,15 @@ const SolutionsPage = () => {
                     eyebrow="The catalogue"
                     title="Every module, in detail"
                     lead="Open any of these for the full feature list, the step-by-step flow and what it changes operationally."
+                />
+
+                <SectionBanner
+                    name="pipeline"
+                    caption="Seven modules, one road through the claim"
+                    sub="Each one solves a problem on its own; together they are a single pipeline with no hand-offs to lose things in."
+                    ratio="aspect-[16/10] xs:aspect-[21/9] sm:aspect-[16/5]"
+                    className="mt-10"
+                    delay={100}
                 />
 
                 <div className="mt-14 space-y-6">

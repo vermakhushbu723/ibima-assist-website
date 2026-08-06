@@ -1,14 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../components/ui/Icon';
+import Img from '../components/ui/Img';
 import usePageMeta from '../hooks/usePageMeta';
 import { NAV_LINKS } from '../data/site';
+import { getSectionImage } from '../data/images';
 
 const NotFoundPage = () => {
     usePageMeta('Page not found');
 
+    const photo = getSectionImage('notFound');
+
     return (
         <section className="surface-deep grid-overlay relative flex min-h-[80vh] items-center overflow-hidden">
+            {/* A road bending out of sight — the page took a wrong turn */}
+            <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+                <Img
+                    base={photo.base}
+                    alt=""
+                    ratio="h-full w-full"
+                    width={1600}
+                    priority
+                    className="h-full w-full"
+                    imgClassName="ken-burns opacity-[0.18]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-ink/85 via-ink/70 to-ink" />
+            </div>
+
             <div className="container-page relative z-10 py-20 text-center sm:py-24">
                 <p className="text-[4.5rem] font-extrabold leading-none tracking-tight text-white/10 xs:text-[6rem] sm:text-[9rem]">
                     404

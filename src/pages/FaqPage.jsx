@@ -6,6 +6,7 @@ import Section, { SectionHeading } from '../components/ui/Section';
 import PageHero from '../components/ui/PageHero';
 import Reveal from '../components/ui/Reveal';
 import Icon from '../components/ui/Icon';
+import SectionBanner from '../components/ui/SectionBanner';
 import CTABand from '../components/ui/CTABand';
 import usePageMeta from '../hooks/usePageMeta';
 import { FAQS } from '../data/content';
@@ -38,11 +39,19 @@ const FaqPage = () => {
                 eyebrow="FAQs"
                 title="The questions we actually get asked"
                 lead="Short, direct answers — including the ones where the honest answer is “it depends, and here is what it depends on”."
-                photo={PHOTOS.workshopFloor}
+                photo={PHOTOS.questionMark}
                 breadcrumb={[{ label: 'Home', to: '/' }, { label: 'FAQs' }]}
             />
 
             <Section tone="light">
+                <SectionBanner
+                    name="faq"
+                    caption="Real answers, from people who handle real claims"
+                    sub="Including the ones where the honest answer is “it depends” — and what it depends on."
+                    ratio="aspect-[16/10] xs:aspect-[21/9] sm:aspect-[16/5]"
+                    className="mx-auto mb-10 max-w-3xl"
+                />
+
                 <AntdScope>
                     <div className="mx-auto max-w-3xl">
                         <Reveal>
@@ -90,6 +99,16 @@ const FaqPage = () => {
                 <SectionHeading
                     eyebrow="Still not answered?"
                     title="Pick the shortest route to a real answer"
+                />
+
+                <SectionBanner
+                    name="support"
+                    caption="Someone is actually at the other end"
+                    sub="No call centre script, no ticket black hole — you get a person who can answer."
+                    ratio="aspect-[16/10] xs:aspect-[21/9] sm:aspect-[16/5]"
+                    align="center"
+                    className="mx-auto mt-10 max-w-4xl"
+                    delay={100}
                 />
 
                 <div className="mx-auto mt-10 grid max-w-4xl gap-4 xs:grid-cols-2 sm:mt-12 sm:gap-5 md:grid-cols-3">

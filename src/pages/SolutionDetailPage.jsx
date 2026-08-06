@@ -9,7 +9,7 @@ import CTABand from '../components/ui/CTABand';
 import { Parallax, Spotlight } from '../components/ui/Motion';
 import usePageMeta from '../hooks/usePageMeta';
 import { SOLUTIONS, getSolution } from '../data/solutions';
-import { getSolutionImage } from '../data/images';
+import { BRANCH_IMAGES, getModeImage, getSolutionDetailImages, getSolutionImage } from '../data/images';
 
 const SolutionDetailPage = () => {
     const { slug } = useParams();
@@ -21,6 +21,9 @@ const SolutionDetailPage = () => {
     if (!solution) return <Navigate to="/solutions" replace />;
 
     const photo = getSolutionImage(solution.slug);
+    // Capabilities and Steps get their own subject so the page isn't the
+    // same picture four times over — see SOLUTION_DETAIL_IMAGES.
+    const { detail: detailPhoto, outcome: outcomePhoto } = getSolutionDetailImages(solution.slug);
     const related = SOLUTIONS.filter((s) => s.slug !== solution.slug).slice(0, 3);
 
     return (
@@ -63,25 +66,42 @@ const SolutionDetailPage = () => {
                                 <h3 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">
                                     Available as
                                 </h3>
+                                {/* Each channel gets the photograph of who
+                                    actually operates it — workshop floor,
+                                    surveyor on site, customer's phone. */}
                                 <div className="mt-4 space-y-3">
-                                    {solution.modes.map((m, i) => (
-                                        <Reveal key={m.name} delay={i * 70}>
-                                            <div className="flex gap-4 rounded-xl border border-slate-200 bg-slate-50/60 p-4">
-                                                <span
-                                                    className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg text-xs font-bold text-white"
-                                                    style={{ background: solution.accent }}
-                                                >
-                                                    {i + 1}
-                                                </span>
-                                                <div>
-                                                    <p className="text-sm font-bold text-ink">{m.name}</p>
-                                                    <p className="mt-1 text-[13px] leading-relaxed text-slate-600">
-                                                        {m.detail}
-                                                    </p>
+                                    {solution.modes.map((m, i) => {
+                                        const photo = getModeImage(m.name);
+                                        return (
+                                            <Reveal key={m.name} delay={i * 80} from="up">
+                                                <div className="group flex gap-4 overflow-hidden rounded-xl border border-slate-200 bg-slate-50/60 p-3 transition-all duration-400 hover:border-brand-200 hover:bg-white sm:p-4">
+                                                    <div className="relative w-24 shrink-0 overflow-hidden rounded-lg sm:w-32">
+                                                        <Img
+                                                            base={photo.base}
+                                                            alt={photo.alt}
+                                                            ratio="aspect-[4/3] h-full"
+                                                            width={480}
+                                                            zoom
+                                                        >
+                                                            <span
+                                                                className="absolute bottom-1.5 left-1.5 grid h-6 w-6 place-items-center rounded-md text-[11px] font-bold text-white"
+                                                                style={{ background: solution.accent }}
+                                                            >
+                                                                {i + 1}
+                                                            </span>
+                                                        </Img>
+                                                    </div>
+
+                                                    <div className="min-w-0 self-center">
+                                                        <p className="text-sm font-bold text-ink">{m.name}</p>
+                                                        <p className="mt-1 text-[13px] leading-relaxed text-slate-600">
+                                                            {m.detail}
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </Reveal>
-                                    ))}
+                                            </Reveal>
+                                        );
+                                    })}
                                 </div>
                             </div>
                         )}
@@ -92,17 +112,35 @@ const SolutionDetailPage = () => {
                                 <h3 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">
                                     Branches covered
                                 </h3>
+                                {/* Fire, marine, engineering, health and
+                                    liability each get their own scene, so the
+                                    branch is obvious before the label is read. */}
                                 <div className="mt-4 grid gap-3 xs:grid-cols-2">
-                                    {solution.branches.map((b, i) => (
-                                        <Reveal key={b.name} delay={(i % 2) * 70}>
-                                            <div className="h-full rounded-xl border border-slate-200 p-4">
-                                                <p className="text-sm font-bold text-ink">{b.name}</p>
-                                                <p className="mt-1.5 text-[13px] leading-relaxed text-slate-600">
-                                                    {b.detail}
-                                                </p>
-                                            </div>
-                                        </Reveal>
-                                    ))}
+                                    {solution.branches.map((b, i) => {
+                                        const photo = BRANCH_IMAGES[b.name];
+                                        return (
+                                            <Reveal key={b.name} delay={(i % 2) * 80} from="up">
+                                                <div className="card card-hover group flex h-full flex-col overflow-hidden">
+                                                    {photo && (
+                                                        <Img
+                                                            base={photo.base}
+                                                            alt={photo.alt}
+                                                            ratio="aspect-[16/9]"
+                                                            zoom
+                                                        >
+                                                            <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/15 to-transparent" />
+                                                            <p className="absolute inset-x-0 bottom-0 p-3 text-sm font-bold text-white">
+                                                                {b.name}
+                                                            </p>
+                                                        </Img>
+                                                    )}
+                                                    <p className="flex-1 p-4 text-[13px] leading-relaxed text-slate-600">
+                                                        {b.detail}
+                                                    </p>
+                                                </div>
+                                            </Reveal>
+                                        );
+                                    })}
                                 </div>
                             </div>
                         )}
@@ -187,6 +225,32 @@ const SolutionDetailPage = () => {
                     lead={`Everything ${solution.name} does, in plain terms.`}
                 />
 
+                {/* A close-up of what this module actually does, so the
+                    capability list is introduced by its own subject. */}
+                <Reveal delay={100} from="up" className="mt-10">
+                    <div className="group overflow-hidden rounded-2xl sm:rounded-3xl">
+                        <Img
+                            base={detailPhoto.base}
+                            alt={detailPhoto.alt}
+                            ratio="aspect-[16/10] xs:aspect-[21/9] sm:aspect-[16/5]"
+                            zoom
+                        >
+                            <div
+                                className="absolute inset-0"
+                                style={{
+                                    background: `linear-gradient(100deg, rgba(4,20,46,0.94) 0%, ${solution.accent}55 65%, rgba(4,20,46,0.25) 100%)`,
+                                }}
+                            />
+                            <div className="absolute inset-0 flex max-w-xl flex-col justify-center p-5 sm:p-8 lg:p-10">
+                                <p className="text-h3 font-extrabold tracking-tight text-white">{detailPhoto.alt}</p>
+                                <p className="mt-2 hidden text-[13px] leading-relaxed text-slate-200 xs:block sm:text-sm">
+                                    {solution.heroPoints.join(' · ')}
+                                </p>
+                            </div>
+                        </Img>
+                    </div>
+                </Reveal>
+
                 <div className="mt-10 grid gap-4 xs:grid-cols-2 sm:mt-12 lg:grid-cols-3">
                     {solution.features.map((f, i) => (
                         <Reveal key={f.title} delay={(i % 3) * 90} from="up">
@@ -237,15 +301,16 @@ const SolutionDetailPage = () => {
 
                     <Reveal delay={140} from="right" className="lg:col-span-5">
                         <Parallax speed={0.05}>
+                            {/* What you are left with once the steps are done. */}
                             <div className="overflow-hidden rounded-2xl ring-1 ring-white/10 lg:sticky lg:top-28">
-                                <Img base={photo.base} alt={photo.alt} ratio="aspect-[4/5]">
+                                <Img base={outcomePhoto.base} alt={outcomePhoto.alt} ratio="aspect-[4/5]">
                                     <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent" />
                                     <div className="absolute inset-x-0 bottom-0 p-6">
                                         <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-300">
-                                            In the field
+                                            What you end up with
                                         </p>
                                         <p className="mt-1.5 text-sm leading-relaxed text-slate-300">
-                                            {solution.heroPoints.join(' · ')}
+                                            {outcomePhoto.alt}
                                         </p>
                                     </div>
                                 </Img>

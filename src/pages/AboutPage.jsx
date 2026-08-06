@@ -5,11 +5,12 @@ import PageHero, { HeroPill } from '../components/ui/PageHero';
 import Reveal from '../components/ui/Reveal';
 import Icon from '../components/ui/Icon';
 import Img from '../components/ui/Img';
+import SectionBanner from '../components/ui/SectionBanner';
 import CTABand from '../components/ui/CTABand';
 import { Parallax, Spotlight } from '../components/ui/Motion';
 import usePageMeta from '../hooks/usePageMeta';
 import { BRAND } from '../data/site';
-import { PHOTOS } from '../data/images';
+import { getSectionImage, PHOTOS } from '../data/images';
 import { MILESTONES, MISSION, VALUES } from '../data/content';
 
 const AboutPage = () => {
@@ -137,21 +138,28 @@ const AboutPage = () => {
             <Section tone="deep">
                 <div className="grid gap-6 lg:grid-cols-2">
                     {[
-                        { label: 'Our mission', body: MISSION.mission, icon: 'shield' },
-                        { label: 'Our vision', body: MISSION.vision, icon: 'branches' },
-                    ].map((m, i) => (
-                        <Reveal key={m.label} delay={i * 130} from={i === 0 ? 'left' : 'right'}>
-                            <Spotlight className="h-full rounded-2xl border border-white/12 bg-white/[0.04] p-6 backdrop-blur sm:p-8 lg:p-10">
-                                <span className="relative z-10 grid h-12 w-12 place-items-center rounded-xl bg-brand-500/20 text-brand-300 ring-1 ring-brand-400/30">
-                                    <Icon name={m.icon} className="h-5.5 w-5.5" strokeWidth={1.7} />
-                                </span>
-                                <h2 className="text-h3 relative z-10 mt-5 font-extrabold tracking-tight text-white">
-                                    {m.label}
-                                </h2>
-                                <p className="text-lead relative z-10 mt-4 text-slate-300">{m.body}</p>
-                            </Spotlight>
-                        </Reveal>
-                    ))}
+                        { key: 'mission', label: 'Our mission', body: MISSION.mission, icon: 'shield' },
+                        { key: 'vision', label: 'Our vision', body: MISSION.vision, icon: 'branches' },
+                    ].map((m, i) => {
+                        const photo = getSectionImage(m.key);
+                        return (
+                            <Reveal key={m.label} delay={i * 130} from={i === 0 ? 'left' : 'right'}>
+                                <Spotlight className="group h-full overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] backdrop-blur">
+                                    <Img base={photo.base} alt={photo.alt} ratio="aspect-[21/9]" zoom>
+                                        <div className="absolute inset-0 bg-gradient-to-t from-[#04142e] via-[#04142e]/55 to-transparent" />
+                                        <span className="absolute bottom-3 left-5 grid h-12 w-12 place-items-center rounded-xl bg-brand-500/25 text-brand-100 ring-1 ring-brand-400/40 backdrop-blur">
+                                            <Icon name={m.icon} className="h-5.5 w-5.5" strokeWidth={1.7} />
+                                        </span>
+                                    </Img>
+
+                                    <div className="relative z-10 p-6 sm:p-8 lg:p-10 lg:pt-8">
+                                        <h2 className="text-h3 font-extrabold tracking-tight text-white">{m.label}</h2>
+                                        <p className="text-lead mt-3 text-slate-300">{m.body}</p>
+                                    </div>
+                                </Spotlight>
+                            </Reveal>
+                        );
+                    })}
                 </div>
             </Section>
 
@@ -211,7 +219,16 @@ const AboutPage = () => {
                     lead="Each stage solved the bottleneck the previous one exposed."
                 />
 
-                <div className="mx-auto mt-14 max-w-3xl">
+                <SectionBanner
+                    name="timeline"
+                    caption="Every year solved the bottleneck the last one exposed"
+                    sub="Nothing here was planned five years out — each stage came from watching the previous one hit its limit."
+                    ratio="aspect-[16/10] xs:aspect-[21/9] sm:aspect-[16/5]"
+                    className="mt-10"
+                    delay={100}
+                />
+
+                <div className="mx-auto mt-12 max-w-3xl sm:mt-14">
                     {MILESTONES.map((m, i) => (
                         <Reveal key={m.year} delay={i * 100} from="left">
                             <div className="group relative flex gap-4 pb-8 last:pb-0 sm:gap-6 sm:pb-9">

@@ -4,11 +4,12 @@ import PageHero, { HeroPill } from '../components/ui/PageHero';
 import Reveal from '../components/ui/Reveal';
 import Icon from '../components/ui/Icon';
 import Img from '../components/ui/Img';
+import SectionBanner from '../components/ui/SectionBanner';
 import CTABand from '../components/ui/CTABand';
 import { Spotlight } from '../components/ui/Motion';
 import usePageMeta from '../hooks/usePageMeta';
 import { BRAND } from '../data/site';
-import { PHOTOS } from '../data/images';
+import { getSectionImage, PHOTOS } from '../data/images';
 import { DIFFERENTIATORS } from '../data/content';
 
 // The honest before/after. Every "after" row maps to something the
@@ -62,13 +63,15 @@ const WhyUsPage = () => {
         'Defensible evidence, explainable AI pricing, a workflow designed by claims people, and one platform across every capture channel.',
     );
 
+    const honestyPhoto = getSectionImage('honesty');
+
     return (
         <>
             <PageHero
                 eyebrow="Why us"
                 title="Automation is easy. Automation you can defend is the hard part."
                 lead="A claim file has to stand up in front of an assessor, an auditor and sometimes an ombudsman. That single constraint shaped every decision in this platform — including the places where we deliberately did not automate."
-                photo={PHOTOS.underBody}
+                photo={PHOTOS.stripped}
                 breadcrumb={[{ label: 'Home', to: '/' }, { label: 'Why Us' }]}
             >
                 <div className="mt-8 flex flex-wrap gap-2.5">
@@ -143,6 +146,15 @@ const WhyUsPage = () => {
                     lead="The left column is how most motor claims are handled today. The right column is what the platform enforces."
                 />
 
+                <SectionBanner
+                    name="comparison"
+                    caption="The difference shows up when someone asks you to prove it"
+                    sub="An assessor, an auditor, sometimes an ombudsman — the file has to hold up in front of all three."
+                    ratio="aspect-[16/10] xs:aspect-[21/9] sm:aspect-[16/5]"
+                    className="mt-10"
+                    delay={100}
+                />
+
                 <Reveal className="mt-10 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_24px_54px_-32px_rgba(4,20,46,0.4)] sm:mt-12">
                     {/* Column headers — only where there are columns to head */}
                     <div className="hidden grid-cols-12 gap-4 border-b border-slate-200 bg-slate-50 px-6 py-3.5 md:grid">
@@ -206,6 +218,22 @@ const WhyUsPage = () => {
                             title="What we do not claim"
                             lead="You will hear plenty of numbers in this market. Here is where we would rather be precise than impressive."
                         />
+
+                        <Reveal delay={120} from="left" className="mt-8">
+                            <div className="group overflow-hidden rounded-2xl ring-1 ring-white/10">
+                                <Img
+                                    base={honestyPhoto.base}
+                                    alt={honestyPhoto.alt}
+                                    ratio="aspect-[4/3]"
+                                    zoom
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/35 to-transparent" />
+                                    <p className="absolute inset-x-0 bottom-0 p-5 text-sm font-semibold text-white">
+                                        Look underneath before you quote a number
+                                    </p>
+                                </Img>
+                            </div>
+                        </Reveal>
                     </div>
 
                     <div className="space-y-4 lg:col-span-7">
