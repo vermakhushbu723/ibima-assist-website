@@ -53,7 +53,7 @@ const SolutionsPage = () => {
                             return (
                                 <Reveal key={p.step} delay={i * 90} from="right" className="sm:flex-1">
                                     <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/70 transition-all duration-400 hover:-translate-y-1 hover:border-brand-200 hover:bg-white hover:shadow-[0_18px_40px_-20px_rgba(4,20,46,0.35)]">
-                                        <Img base={photo.base} alt={photo.alt} ratio="aspect-[16/10]" zoom>
+                                        <Img {...photo} ratio="aspect-[16/10]" zoom>
                                             <div className="absolute inset-0 bg-gradient-to-t from-ink/80 to-transparent" />
                                             <span className="absolute bottom-2.5 left-3 grid h-8 w-8 place-items-center rounded-lg bg-brand-500 text-xs font-bold text-white transition-transform duration-400 group-hover:scale-110">
                                                 {p.step}
@@ -103,8 +103,7 @@ const SolutionsPage = () => {
                                     {/* Photo panel */}
                                     <div className="relative lg:col-span-5 lg:[direction:ltr]">
                                         <Img
-                                            base={photo.base}
-                                            alt={photo.alt}
+                                            {...photo}
                                             ratio="aspect-[16/10] lg:aspect-auto lg:h-full"
                                             zoom
                                             className="h-full"

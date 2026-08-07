@@ -222,8 +222,7 @@ const WhyUsPage = () => {
                         <Reveal delay={120} from="left" className="mt-8">
                             <div className="group overflow-hidden rounded-2xl ring-1 ring-white/10">
                                 <Img
-                                    base={honestyPhoto.base}
-                                    alt={honestyPhoto.alt}
+                                    {...honestyPhoto}
                                     ratio="aspect-[4/3]"
                                     zoom
                                 >

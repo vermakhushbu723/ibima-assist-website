@@ -10,6 +10,7 @@ import PlatformVisual from '../components/ui/PlatformVisual';
 import CTABand from '../components/ui/CTABand';
 import { Parallax, Spotlight, WordReveal } from '../components/ui/Motion';
 import usePageMeta from '../hooks/usePageMeta';
+import { BRAND } from '../data/site';
 import { SOLUTIONS } from '../data/solutions';
 import { AUDIENCE_IMAGES, getSolutionImage, PHOTOS, PROCESS_IMAGES } from '../data/images';
 import { AUDIENCES, CAPABILITY_STRIP, DIFFERENTIATORS, PROCESS, STATS } from '../data/content';
@@ -44,19 +45,21 @@ const Hero = () => (
                     </span>
                 </Reveal>
 
+                {/* Headline and positioning statement supplied by the client. */}
                 <h1 className="text-display mt-5 font-extrabold text-white sm:mt-6">
-                    <WordReveal text="Motor claims," />{' '}
+                    <WordReveal text="Smarter Motor Claims." />{' '}
                     <span className="text-gradient">
-                        <WordReveal text="settled on evidence" delay={180} />
+                        <WordReveal text="Faster Decisions." delay={220} />
                     </span>{' '}
-                    <WordReveal text="— not on guesswork." delay={420} />
+                    <WordReveal text="Better Outcomes." delay={460} />
                 </h1>
 
                 <Reveal delay={180} from="left">
                     <p className="text-lead mt-5 max-w-xl text-slate-300 sm:mt-6">
-                        We put a disciplined capture process in the hands of whoever is standing next to the vehicle,
-                        an AI assessment engine behind whoever has to price the loss, and one console that carries the
-                        file from first notice of loss to settlement.
+                        {BRAND.name} is an AI-powered motor claims management platform that helps insurers and claims
+                        service providers streamline the entire claims lifecycle — from claim intimation and
+                        inspections to assessment, collaboration, and settlement — through intelligent workflows,
+                        real-time visibility, and enterprise-grade automation.
                     </p>
                 </Reveal>
 
@@ -288,7 +291,7 @@ const SolutionsGrid = () => (
                             className="card card-hover group flex h-full flex-col overflow-hidden"
                         >
                             {/* Photo header */}
-                            <Img base={photo.base} alt={photo.alt} ratio="aspect-[16/9]" zoom>
+                            <Img {...photo} ratio="aspect-[16/9]" zoom>
                                 <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent" />
                                 <span
                                     className="absolute bottom-3 left-3 grid h-11 w-11 place-items-center rounded-xl text-white shadow-lg transition-transform duration-500 group-hover:scale-110"
@@ -375,7 +378,7 @@ const HowItWorks = () => (
                         )}
 
                         <Spotlight className="group h-full overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] backdrop-blur transition-transform duration-500 hover:-translate-y-1">
-                            <Img base={photo.base} alt={photo.alt} ratio="aspect-[16/10]" zoom>
+                            <Img {...photo} ratio="aspect-[16/10]" zoom>
                                 <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
                                 <span className="absolute bottom-2.5 left-3 grid h-9 w-9 place-items-center rounded-lg border border-brand-400/40 bg-brand-500/25 text-xs font-bold text-brand-100 backdrop-blur">
                                     {p.step}
@@ -479,7 +482,7 @@ const BuiltFor = () => (
                     <Reveal key={a.title} delay={(i % 3) * 90} from="scale">
                         <div className="card card-hover group flex h-full flex-col overflow-hidden">
                             {photo && (
-                                <Img base={photo.base} alt={photo.alt} ratio="aspect-[16/9]" zoom>
+                                <Img {...photo} ratio="aspect-[16/9]" zoom>
                                     <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent" />
                                     <span className="absolute bottom-3 left-3 grid h-10 w-10 place-items-center rounded-lg bg-white/15 text-white ring-1 ring-white/25 backdrop-blur transition-transform duration-500 group-hover:scale-110">
                                         <Icon name={a.icon} className="h-4.5 w-4.5" strokeWidth={1.8} />
@@ -634,7 +637,7 @@ const AppStrip = () => (
 const HomePage = () => {
     usePageMeta(
         null,
-        'IBima Assist provides guided claim survey capture, AI-assisted motor damage assessment, pre-inspection and end-to-end claim intimation management for insurers, brokers, surveyors and repair workshops.',
+        `${BRAND.name} is an AI-powered motor claims management platform that helps insurers and claims service providers streamline the entire claims lifecycle — from claim intimation and inspections to assessment, collaboration and settlement.`,
     );
 
     return (

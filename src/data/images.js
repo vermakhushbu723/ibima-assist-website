@@ -16,6 +16,10 @@
 // to change — nothing imports an Unsplash URL directly.
 // =============================================================
 
+// ── Client-supplied artwork ────────────────────────────────────
+// Bundled locally rather than hotlinked. Vite hashes these on build.
+import preInspectionCapture from '../assets/pre-inspection-capture.jpg';
+
 const CDN = 'https://images.unsplash.com';
 
 /**
@@ -113,16 +117,38 @@ export const PHOTOS = {
 // description.
 const shot = (base, alt) => ({ base, alt });
 
+// The same, for a locally bundled file. <Img> takes `src` in place of
+// `base` and skips the Unsplash URL building.
+const localShot = (src, alt) => ({ src, alt });
+
+// Client-supplied artwork, keyed like PHOTOS so it reads the same at
+// the call site.
+export const ARTWORK = {
+    // Inspector photographing a car with a phone and tablet, overlaid
+    // with a "PRE-INSPECTION — Condition Baseline Capture" checklist
+    // (exterior 360°, interior, odometer, chassis number, existing
+    // damage, location & time).
+    preInspection: preInspectionCapture,
+};
+
 // ── Per-solution hero imagery ──────────────────────────────────
 // Keyed by the slugs in src/data/solutions.js.
 export const SOLUTION_IMAGES = {
     'motor-claim-survey': shot(PHOTOS.crashFront, 'Close-up of a damaged car front end being surveyed'),
-    'pre-inspection': shot(PHOTOS.inspection, 'Inspector checking a vehicle’s panels with a hand lamp'),
+    // Client-supplied artwork: it names the module and lists its own
+    // capture checklist, so it says more than any stock photo could.
+    'pre-inspection': localShot(
+        ARTWORK.preInspection,
+        'Inspector capturing a vehicle’s condition baseline — exterior 360°, interior, odometer, chassis number, existing damage and location all recorded',
+    ),
     'ai-damage-assessment': shot(PHOTOS.crashRear, 'Damaged rear quarter panel of a car'),
     'intimation-management': shot(PHOTOS.deskWork, 'Claims handler working through a file at a desk'),
     'surveyor-mobile-app': shot(PHOTOS.underHood, 'Surveyor inspecting an engine bay'),
     'partner-network-console': shot(PHOTOS.onLift, 'Car raised on a lift inside a partner workshop'),
-    'non-motor-claims': shot(PHOTOS.teamInspect, 'Assessors examining damage together on site'),
+    // Deliberately NOT a car. This page covers fire, marine,
+    // engineering, health and liability — a motor scene here was
+    // telling visitors the opposite of what the page is about.
+    'non-motor-claims': shot(PHOTOS.marinePort, 'Container port — one of the non-motor branches covered'),
 };
 
 export const getSolutionImage = (slug) =>
@@ -133,6 +159,11 @@ export const getSolutionImage = (slug) =>
 // own subject or the page becomes the same picture four times over —
 // so each module gets a `detail` shot (what it does close up) and an
 // `outcome` shot (what you end up with).
+//
+// Optional `hero` (the dim backdrop) and `rail` (the large visible card
+// beside the overview) override those slots on that page only, leaving
+// SOLUTION_IMAGES to keep driving the module's cards elsewhere on the
+// site.
 export const SOLUTION_DETAIL_IMAGES = {
     'motor-claim-survey': {
         detail: shot(PHOTOS.stripped, 'Bumper removed to expose the damage underneath'),
@@ -159,6 +190,14 @@ export const SOLUTION_DETAIL_IMAGES = {
         outcome: shot(PHOTOS.handshake, 'A new workshop onboarded onto the network'),
     },
     'non-motor-claims': {
+        // Client asked for their capture artwork on this page. Scoped to
+        // this page's hero and rail so the "Non-Motor Claims" cards
+        // elsewhere on the site still show a non-motor scene.
+        hero: localShot(ARTWORK.preInspection, 'Inspector capturing a condition baseline on site'),
+        rail: localShot(
+            ARTWORK.preInspection,
+            'Inspector capturing a condition baseline — exterior, interior, odometer, chassis number, existing damage and location all recorded',
+        ),
         detail: shot(PHOTOS.technician, 'Assessor examining damage in detail on site'),
         outcome: shot(PHOTOS.deskWork, 'Branch report compiled and the file closed'),
     },

@@ -8,7 +8,8 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/((?!assets/|favicon\\.svg).*)",
+      "comment": "SPA fallback. Anything with a file extension is a real asset in public/ or dist/assets and must be served as-is — without this, /favicon.png and /logo-ibima.png would be rewritten to index.html and render as broken images.",
+      "source": "/((?!assets/)(?!.*\\.[a-zA-Z0-9]+$).*)",
       "destination": "/index.html"
     }
   ],

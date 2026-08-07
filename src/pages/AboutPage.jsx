@@ -145,7 +145,7 @@ const AboutPage = () => {
                         return (
                             <Reveal key={m.label} delay={i * 130} from={i === 0 ? 'left' : 'right'}>
                                 <Spotlight className="group h-full overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] backdrop-blur">
-                                    <Img base={photo.base} alt={photo.alt} ratio="aspect-[21/9]" zoom>
+                                    <Img {...photo} ratio="aspect-[21/9]" zoom>
                                         <div className="absolute inset-0 bg-gradient-to-t from-[#04142e] via-[#04142e]/55 to-transparent" />
                                         <span className="absolute bottom-3 left-5 grid h-12 w-12 place-items-center rounded-xl bg-brand-500/25 text-brand-100 ring-1 ring-brand-400/40 backdrop-blur">
                                             <Icon name={m.icon} className="h-5.5 w-5.5" strokeWidth={1.7} />

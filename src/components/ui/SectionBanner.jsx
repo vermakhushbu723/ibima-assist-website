@@ -29,7 +29,7 @@ const SectionBanner = ({
     return (
         <Reveal delay={delay} from="up" className={className}>
             <div className="group overflow-hidden rounded-2xl sm:rounded-3xl">
-                <Img base={photo.base} alt={photo.alt} ratio={ratio} zoom>
+                <Img {...photo} ratio={ratio} zoom>
                     <div
                         className={
                             centred

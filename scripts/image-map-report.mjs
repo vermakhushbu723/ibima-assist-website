@@ -66,11 +66,14 @@ const collect = () =>
             // the section is about. Tracked, but not counted as the
             // section's own image when looking for repeats.
             const backdrop = !!im.closest('[aria-hidden="true"]');
-            return {
-                id: (im.currentSrc || im.src).match(/photo-[0-9a-f]+/)?.[0] ?? '(none)',
-                alt: im.alt || '(decorative)',
-                backdrop,
-            };
+            const url = im.currentSrc || im.src;
+            // Unsplash photos are identified by their photo-<id>; locally
+            // bundled artwork by its (hashed) filename.
+            const id =
+                url.match(/photo-[0-9a-f]+/)?.[0] ??
+                url.split('/').pop()?.replace(/-[A-Za-z0-9_-]{8}(\.\w+)$/, '$1') ??
+                '(none)';
+            return { id, alt: im.alt || '(decorative)', backdrop, local: !url.includes('unsplash') };
         });
         return {
             index: i + 1,
@@ -115,7 +118,8 @@ const main = async () => {
                 const unique = [...new Map(s.images.map((im) => [im.id, im])).values()];
                 console.log(`  § ${s.label}`);
                 for (const im of unique) {
-                    console.log(`      ${im.backdrop ? '~' : ' '} ${im.id.padEnd(20)} ${im.alt}`);
+                    const tag = `${im.backdrop ? '~' : ' '}${im.local ? '*' : ' '}`;
+                    console.log(`     ${tag} ${im.id.padEnd(28)} ${im.alt}`);
                 }
 
                 const lead = unique.find((im) => !im.backdrop)?.id;
@@ -132,6 +136,8 @@ const main = async () => {
         await browser.close();
         server.close();
     }
+
+    console.log('\nlegend:  ~ hero backdrop (texture, excluded from repeat check)   * locally bundled');
 
     if (repeats.length) {
         console.log('\n── Same photo leading two sections on one page ──');

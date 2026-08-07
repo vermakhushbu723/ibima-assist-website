@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import { img } from '../../data/images';
 
 /**
- * Remote photograph with the boring parts handled: a responsive
- * srcset so phones don't download a 1600px file, native lazy
- * loading below the fold, a tinted placeholder while it arrives,
- * and a fade-in once it does.
+ * Photograph with the boring parts handled: a responsive srcset so
+ * phones don't download a 1600px file, native lazy loading below the
+ * fold, a tinted placeholder while it arrives, and a fade-in once it
+ * does.
+ *
+ * Takes either a remote Unsplash `base` or a bundled local `src`
+ * (an imported asset). Local files are served at one size — Vite
+ * hashes and serves them as-is — so no srcset is generated for them.
  *
  * @param {string}  base     Unsplash photo base from src/data/images.js
+ * @param {string}  src      imported local asset; wins over `base`
  * @param {string}  alt      required — describes the photo, not the layout
  * @param {string}  ratio    Tailwind aspect utility, e.g. 'aspect-[4/3]'
  * @param {boolean} zoom     scale the image on hover of the nearest .group
@@ -16,6 +21,7 @@ import { img } from '../../data/images';
  */
 const Img = ({
     base,
+    src,
     alt,
     ratio = 'aspect-[4/3]',
     zoom = false,
@@ -27,7 +33,11 @@ const Img = ({
 }) => {
     const [loaded, setLoaded] = useState(false);
 
-    const srcSet = [480, 800, 1200, 1600].map((w) => `${img(base, { w })} ${w}w`).join(', ');
+    const local = Boolean(src);
+    const resolvedSrc = local ? src : img(base, { w: width });
+    const srcSet = local
+        ? undefined
+        : [480, 800, 1200, 1600].map((w) => `${img(base, { w })} ${w}w`).join(', ');
 
     return (
         <div className={`relative overflow-hidden ${ratio} ${className}`}>
@@ -40,9 +50,9 @@ const Img = ({
             />
 
             <img
-                src={img(base, { w: width })}
+                src={resolvedSrc}
                 srcSet={srcSet}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
+                sizes={local ? undefined : '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw'}
                 alt={alt}
                 loading={priority ? 'eager' : 'lazy'}
                 decoding="async"

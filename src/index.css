@@ -26,6 +26,12 @@
     --color-accent: #f59e0b;
     --color-accent-soft: #fbbf24;
 
+    /* Sampled from the supplied IBima Assist logo (see
+       scripts/extract-logo.mjs) so the HTML wordmark beside the mark
+       matches the printed one rather than approximating it. */
+    --color-logo-navy: #0a1e4a;
+    --color-logo-orange: #f87818;
+
     --font-sans:
         'Inter', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial,
         sans-serif;

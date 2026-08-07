@@ -21,7 +21,9 @@ const MobileMenuDrawer = ({ open, onClose }) => (
             onClose={onClose}
             size={320}
             styles={{ body: { padding: 0 }, header: { borderBottom: '1px solid #e6ecf4' } }}
-            title={<BrandLogo />}
+            // The drawer header is white and has the height for it, so the
+            // supplied logo can be used whole here.
+            title={<BrandLogo variant="full" />}
         >
             <nav className="flex flex-col p-4">
                 {NAV_LINKS.map((link) => (

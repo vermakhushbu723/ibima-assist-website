@@ -90,8 +90,16 @@ particular:
 - **`src/components/layout/Footer.jsx`** — the five policy links (Privacy, Terms, Cookies,
   Disclaimer, Grievance Redressal) all point at `/contact` until the real documents exist. Their
   targets live in `LEGAL.policies`.
-- **`src/components/ui/BrandLogo.jsx`** and **`public/favicon.svg`** — replace the drawn mark with
-  the client's supplied logo. Only those two files need to change.
+- **Logo — check the co-branding.** The navbar, footer, drawer and favicon now use the real
+  IBima Assist mark, extracted from the product app's `src/assets/logo.png`. That source file is a
+  **co-branding lockup holding two logos**: New India Assurance (a client insurer) on the left and
+  IBima Assist on the right. Only the right-hand mark is used here — putting a client's logo in
+  this site's own chrome would present them as part of this brand. If the client does want the
+  New India Assurance logo shown, it belongs in a clients/partners section with their written
+  permission, not in the header. Re-run `node scripts/extract-logo.mjs` if the source logo changes;
+  it regenerates `public/logo-ibima.png`, `public/logo-ibima-icon.png` and `public/favicon.png`.
+  A vector (SVG) version of the mark would render more sharply than the supplied 602×134 PNG —
+  worth asking the client for.
 - **`src/components/ui/PlatformVisual.jsx`** — the hero composition is drawn in CSS/SVG rather
   than screenshotted, so it needs no assets. Swap for real product screenshots once they are
   cleared for marketing use.
@@ -135,6 +143,11 @@ nothing hard-codes either name.
 
   Each `PHOTOS` entry carries a comment describing what the photograph actually shows. Keep that
   accurate — it is the only way a later swap can be checked without re-downloading everything.
+- **Client-supplied artwork** goes in `src/assets/` and is registered in `ARTWORK` in
+  `src/data/images.js`, then referenced with `localShot()` instead of `shot()`. `<Img>` takes
+  either a remote `base` or a local `src`; `<PageHero photo={…}>` takes either a base string or a
+  whole shot object. Local files are bundled and hashed by Vite rather than hotlinked, and get no
+  `srcset` — supply them at roughly the size they'll be shown.
 - **Motion is CSS-driven, no animation library.** `src/index.css` holds the keyframes and classes;
   `src/components/ui/Motion.jsx` and `Reveal.jsx` only feed them a number or a class:
   `<Reveal from="up|down|left|right|scale|blur">` for scroll entrances, `<Parallax>` for depth,

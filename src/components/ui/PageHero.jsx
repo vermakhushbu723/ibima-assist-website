@@ -9,15 +9,21 @@ import Reveal from './Reveal';
  * of them open the same way. The home page has its own, larger
  * hero instead.
  *
- * @param {string} photo Unsplash base from src/data/images.js — sits
- *                       behind the copy, heavily darkened.
+ * @param {string|{base?:string,src?:string}} photo Backdrop behind the
+ *   copy, heavily darkened. Takes either an Unsplash base string from
+ *   `PHOTOS`, or a whole shot object — which is what lets a locally
+ *   bundled image (`{ src }`) be used here as well as a remote one.
  */
-const PageHero = ({ eyebrow, title, lead, breadcrumb = [], photo, children }) => (
+const PageHero = ({ eyebrow, title, lead, breadcrumb = [], photo, children }) => {
+    const backdrop = typeof photo === 'string' ? { base: photo } : photo;
+
+    return (
     <section className="surface-deep grid-overlay relative overflow-hidden">
-        {photo && (
+        {backdrop && (
             <div className="pointer-events-none absolute inset-0" aria-hidden="true">
                 <Img
-                    base={photo}
+                    base={backdrop.base}
+                    src={backdrop.src}
                     alt=""
                     ratio="h-full w-full"
                     width={1600}
@@ -72,7 +78,8 @@ const PageHero = ({ eyebrow, title, lead, breadcrumb = [], photo, children }) =>
         {/* Soft fade into the page below */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-white/5" />
     </section>
-);
+    );
+};
 
 export const HeroPill = ({ children }) => (
     <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-2 text-xs font-medium text-slate-200 backdrop-blur transition-all duration-300 hover:border-brand-400/50 hover:bg-brand-500/10">

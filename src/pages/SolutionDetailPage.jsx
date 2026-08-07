@@ -22,8 +22,14 @@ const SolutionDetailPage = () => {
 
     const photo = getSolutionImage(solution.slug);
     // Capabilities and Steps get their own subject so the page isn't the
-    // same picture four times over — see SOLUTION_DETAIL_IMAGES.
-    const { detail: detailPhoto, outcome: outcomePhoto } = getSolutionDetailImages(solution.slug);
+    // same picture four times over — see SOLUTION_DETAIL_IMAGES. `hero`
+    // is optional and overrides the backdrop on this page only.
+    const {
+        hero: heroPhoto,
+        rail: railPhoto,
+        detail: detailPhoto,
+        outcome: outcomePhoto,
+    } = getSolutionDetailImages(solution.slug);
     const related = SOLUTIONS.filter((s) => s.slug !== solution.slug).slice(0, 3);
 
     return (
@@ -32,7 +38,7 @@ const SolutionDetailPage = () => {
                 eyebrow={solution.short}
                 title={solution.name}
                 lead={solution.tagline}
-                photo={photo.base}
+                photo={heroPhoto ?? photo}
                 breadcrumb={[
                     { label: 'Home', to: '/' },
                     { label: 'Solutions', to: '/solutions' },
@@ -77,8 +83,7 @@ const SolutionDetailPage = () => {
                                                 <div className="group flex gap-4 overflow-hidden rounded-xl border border-slate-200 bg-slate-50/60 p-3 transition-all duration-400 hover:border-brand-200 hover:bg-white sm:p-4">
                                                     <div className="relative w-24 shrink-0 overflow-hidden rounded-lg sm:w-32">
                                                         <Img
-                                                            base={photo.base}
-                                                            alt={photo.alt}
+                                                            {...photo}
                                                             ratio="aspect-[4/3] h-full"
                                                             width={480}
                                                             zoom
@@ -123,8 +128,7 @@ const SolutionDetailPage = () => {
                                                 <div className="card card-hover group flex h-full flex-col overflow-hidden">
                                                     {photo && (
                                                         <Img
-                                                            base={photo.base}
-                                                            alt={photo.alt}
+                                                            {...photo}
                                                             ratio="aspect-[16/9]"
                                                             zoom
                                                         >
@@ -152,7 +156,7 @@ const SolutionDetailPage = () => {
                             <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-[0_24px_54px_-30px_rgba(4,20,46,0.45)]">
                                 {/* Photo header */}
                                 <div className="relative">
-                                    <Img base={photo.base} alt={photo.alt} ratio="aspect-[16/9]" />
+                                    <Img {...(railPhoto ?? photo)} ratio="aspect-[16/9]" />
                                     <div
                                         className="absolute inset-0"
                                         style={{
@@ -230,8 +234,7 @@ const SolutionDetailPage = () => {
                 <Reveal delay={100} from="up" className="mt-10">
                     <div className="group overflow-hidden rounded-2xl sm:rounded-3xl">
                         <Img
-                            base={detailPhoto.base}
-                            alt={detailPhoto.alt}
+                            {...detailPhoto}
                             ratio="aspect-[16/10] xs:aspect-[21/9] sm:aspect-[16/5]"
                             zoom
                         >
@@ -303,7 +306,7 @@ const SolutionDetailPage = () => {
                         <Parallax speed={0.05}>
                             {/* What you are left with once the steps are done. */}
                             <div className="overflow-hidden rounded-2xl ring-1 ring-white/10 lg:sticky lg:top-28">
-                                <Img base={outcomePhoto.base} alt={outcomePhoto.alt} ratio="aspect-[4/5]">
+                                <Img {...outcomePhoto} ratio="aspect-[4/5]">
                                     <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent" />
                                     <div className="absolute inset-x-0 bottom-0 p-6">
                                         <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-300">
@@ -337,7 +340,7 @@ const SolutionDetailPage = () => {
                                     to={`/solutions/${r.slug}`}
                                     className="card card-hover group flex h-full flex-col overflow-hidden"
                                 >
-                                    <Img base={rp.base} alt={rp.alt} ratio="aspect-[16/9]" zoom>
+                                    <Img {...rp} ratio="aspect-[16/9]" zoom>
                                         <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent" />
                                         <span
                                             className="absolute bottom-3 left-3 grid h-10 w-10 place-items-center rounded-xl text-white transition-transform duration-500 group-hover:scale-110"
