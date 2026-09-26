@@ -11,17 +11,8 @@ import { Spotlight } from '../components/ui/Motion';
 import usePageMeta from '../hooks/usePageMeta';
 import { CONTACT } from '../data/site';
 import { PHOTOS } from '../data/images';
-import { SOLUTIONS } from '../data/solutions';
-
-const ORG_TYPES = [
-    'Insurer',
-    'Broker / Agent',
-    'Surveyor / Loss assessor',
-    'Repair workshop',
-    'TPA',
-    'Corporate / Fleet',
-    'Other',
-];
+import { ORG_TYPES, INTEREST_OPTIONS, PHONE_PATTERN } from '../data/enquiry';
+import { submitEnquiry } from '../lib/api';
 
 const ContactForm = () => {
     const [form] = Form.useForm();
@@ -31,16 +22,17 @@ const ContactForm = () => {
     const onFinish = async (values) => {
         setSubmitting(true);
         try {
-            // TODO: wire this to the real enquiry endpoint / CRM.
-            // Until then the submission is logged and the user gets
-            // an honest "we have not received this yet" fallback.
-            console.info('[contact] enquiry submitted', values);
-            await new Promise((r) => setTimeout(r, 600));
-
+            await submitEnquiry({ ...values, source: '/contact' });
             messageApi.success('Thanks — your enquiry has been recorded. We will get back to you shortly.');
             form.resetFields();
-        } catch {
-            messageApi.error('Something went wrong. Please email us instead.');
+        } catch (err) {
+            // Put the API's per-field validation messages on the fields themselves.
+            if (err.errors) {
+                form.setFields(Object.entries(err.errors).map(([name, msg]) => ({ name, errors: [msg] })));
+            }
+            messageApi.error(
+                err.status === 0 || err.status >= 500 ? 'Something went wrong. Please email us instead.' : err.message,
+            );
         } finally {
             setSubmitting(false);
         }
@@ -84,7 +76,7 @@ const ContactForm = () => {
                         rules={[
                             { required: true, message: 'Please enter a contact number' },
                             {
-                                pattern: /^[0-9+\-\s()]{8,18}$/,
+                                pattern: PHONE_PATTERN,
                                 message: 'Please enter a valid phone number',
                             },
                         ]}
@@ -103,11 +95,7 @@ const ContactForm = () => {
                     <Form.Item name="interest" label="Interested in">
                         <Select
                             placeholder="Select a solution"
-                            options={[
-                                ...SOLUTIONS.map((s) => ({ value: s.slug, label: s.name })),
-                                { value: 'whole-platform', label: 'The whole platform' },
-                                { value: 'not-sure', label: 'Not sure yet' },
-                            ]}
+                            options={INTEREST_OPTIONS}
                             allowClear
                         />
                     </Form.Item>

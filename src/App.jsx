@@ -17,13 +17,17 @@ const FaqPage = lazy(() => import('./pages/FaqPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
+// The admin panel has its own shell (sidebar + navbar) and never
+// renders the public site's Navbar/Footer.
+const AdminApp = lazy(() => import('./admin/AdminApp'));
+
 // Placeholder shown while a route chunk loads. Sized to the dark hero
 // so the navbar doesn't flash from light to dark and back.
 const RouteFallback = () => (
     <div className="surface-deep min-h-[70vh]" aria-busy="true" aria-label="Loading" />
 );
 
-const App = () => (
+const SiteLayout = () => (
     <div className="flex min-h-screen flex-col bg-white">
         <ScrollToTop />
         <ScrollProgress />
@@ -49,6 +53,20 @@ const App = () => (
 
         <Footer />
     </div>
+);
+
+const App = () => (
+    <Routes>
+        <Route
+            path="/admin/*"
+            element={
+                <Suspense fallback={<div className="min-h-screen bg-[#f4f7fb]" aria-busy="true" />}>
+                    <AdminApp />
+                </Suspense>
+            }
+        />
+        <Route path="*" element={<SiteLayout />} />
+    </Routes>
 );
 
 export default App;
