@@ -78,4 +78,24 @@ export async function api(path, { method = 'GET', body, auth = false, raw = fals
     return res.json();
 }
 
-export const submitEnquiry = (values) => api('/enquiries', { method: 'POST', body: values });
+// The Android app (ibima-assist-app) is built with VITE_ENQUIRY_URL so its
+// Contact form goes to the IBima Assist admin panel's backend instead;
+// the website itself keeps posting to its own /api/enquiries.
+const ENQUIRY_URL = (import.meta.env.VITE_ENQUIRY_URL || '').trim();
+
+export async function submitEnquiry(values) {
+    if (!ENQUIRY_URL) return api('/enquiries', { method: 'POST', body: values });
+    let res;
+    try {
+        res = await fetch(ENQUIRY_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...values, channel: 'app' }),
+        });
+    } catch {
+        throw new ApiError('Could not reach the server. Please check your connection.', 0);
+    }
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new ApiError(data.message || data.detail || `Request failed (${res.status})`, res.status, data.errors);
+    return data;
+}
