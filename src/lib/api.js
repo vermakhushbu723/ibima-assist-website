@@ -79,7 +79,7 @@ export async function api(path, { method = 'GET', body, auth = false, raw = fals
 }
 
 // The Android app (ibima-assist-app) is built with VITE_ENQUIRY_URL so its
-// Contact form goes to the IBima Assist admin panel's backend instead;
+// Contact form goes to the iBima Assist admin panel's backend instead;
 // the website itself keeps posting to its own /api/enquiries.
 const ENQUIRY_URL = (import.meta.env.VITE_ENQUIRY_URL || '').trim();
 

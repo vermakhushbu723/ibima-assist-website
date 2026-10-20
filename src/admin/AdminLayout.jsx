@@ -14,6 +14,7 @@ import {
 import { useAuth } from './auth';
 import { api } from '../lib/api';
 import { ENQUIRIES_CHANGED } from './constants';
+import { IMark, Wordmark } from '../components/ui/BrandLogo';
 
 const { Sider, Header, Content } = Layout;
 
@@ -24,12 +25,16 @@ const PAGES = {
 };
 
 const Brand = ({ collapsed }) => (
-    <Link to="/admin" className="flex h-[52px] items-center gap-2.5 border-b border-white/10 px-4">
-        <img src="/logo-ibima-icon.png" alt="" className="h-7 w-7 shrink-0 rounded bg-white p-0.5" />
-        {!collapsed && (
-            <span className="min-w-0 leading-tight">
-                <span className="block truncate text-[13px] font-bold text-white">IBima Assist</span>
-                <span className="block text-[10.5px] uppercase tracking-[0.14em] text-slate-400">Website admin</span>
+    <Link
+        to="/admin"
+        className={`flex h-[52px] items-center border-b border-white/10 ${collapsed ? 'justify-center px-2' : 'px-4'}`}
+    >
+        {collapsed ? (
+            <IMark className="h-7 w-auto" />
+        ) : (
+            <span className="min-w-0 leading-none">
+                <Wordmark onDark className="text-[17px]" />
+                <span className="mt-1 block text-[10px] uppercase tracking-[0.14em] text-slate-400">Website admin</span>
             </span>
         )}
     </Link>
@@ -109,7 +114,7 @@ const AdminLayout = () => {
     }, [loadNewCount]);
 
     useEffect(() => {
-        document.title = `${page.title} · IBima Admin`;
+        document.title = `${page.title} · iBima Admin`;
     }, [page.title]);
 
     const userMenu = {

@@ -75,7 +75,7 @@ const validEnquiry = (over = {}) => ({
 const section = (t) => console.log(`\n${c.b(t)}`);
 
 async function main() {
-    console.log(c.b(`IBima Assist API test  ·  ${API}`));
+    console.log(c.b(`iBima Assist API test  ·  ${API}`));
 
     /* ---------- Health ---------- */
     section('Health');

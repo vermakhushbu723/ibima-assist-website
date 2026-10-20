@@ -3,6 +3,7 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Alert, Button, Form, Input } from 'antd';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { useAuth } from '../auth';
+import { Wordmark } from '../../components/ui/BrandLogo';
 
 const LoginPage = () => {
     const { admin, checking, login } = useAuth();
@@ -12,7 +13,7 @@ const LoginPage = () => {
     const location = useLocation();
 
     useEffect(() => {
-        document.title = 'Sign in · IBima Admin';
+        document.title = 'Sign in · iBima Admin';
     }, []);
 
     if (!checking && admin) return <Navigate to={location.state?.from || '/admin'} replace />;
@@ -34,7 +35,7 @@ const LoginPage = () => {
         <div className="grid min-h-screen place-items-center bg-[#f4f7fb] px-4 py-10">
             <div className="w-full max-w-[360px]">
                 <div className="mb-5 flex flex-col items-center text-center">
-                    <img src="/logo-ibima.png" alt="IBima Assist" className="h-10 w-auto" />
+                    <Wordmark className="text-[30px]" />
                     <h1 className="mt-4 text-[17px] font-bold text-slate-800">Website admin</h1>
                     <p className="mt-1 text-[12.5px] text-slate-500">Sign in to manage enquiries from the website</p>
                 </div>

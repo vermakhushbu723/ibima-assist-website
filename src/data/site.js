@@ -7,9 +7,10 @@
 
 export const BRAND = {
     // The public-facing product name.
-    name: 'IBima Assist',
-    // Split for the two-tone wordmark in <BrandLogo />.
-    nameLead: 'IBima',
+    name: 'iBima Assist',
+    // Split for the wordmark in <BrandLogo />: the leading "i" is the
+    // drawn <IMark />, so the text part starts at "Bima".
+    nameLead: 'Bima',
     nameTrail: 'Assist',
     tagline: 'Claims, digitised end to end',
     // The company that owns and operates the platform. Shown as

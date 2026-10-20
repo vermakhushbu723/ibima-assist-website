@@ -3,29 +3,46 @@ import { Link } from 'react-router-dom';
 import { BRAND } from '../../data/site';
 
 // =============================================================
-// BRAND LOGO
-// The mark is the real one, lifted from the product app's
-// src/assets/logo.png. That file is a co-branding lockup holding
-// TWO logos side by side — New India Assurance (a client) on the
-// left and IBima Assist on the right — so only the right-hand
-// mark is used here. Carrying a client insurer's logo in this
-// site's own chrome would present them as part of this brand.
-// scripts/extract-logo.mjs does the extraction and writes:
-//   public/logo-ibima.png       full mark, icon over wordmark
-//   public/logo-ibima-icon.png  the graphic alone
-//   public/favicon.png          the graphic, squared, for the tab
+// BRAND LOGO — "iBima Assist"
+// Drawn to match the client's wordmark artwork: a lowercase "i"
+// built as a figure (orange dot for the head, teal shoulders and
+// stem), "Bima" in white on dark / navy on light, and "Assist" in
+// teal. Colours are the --color-logo-* tokens in src/index.css,
+// sampled from that artwork.
 //
-// The supplied wordmark is set in dark navy, which disappears on
-// the dark navbar and footer. Rather than recolour someone else's
-// logo, the icon is paired with an HTML wordmark in the logo's own
-// sampled colours (--color-logo-navy / --color-logo-orange), which
-// can flip to white on dark. `variant="full"` uses the supplied
-// image whole, for light backgrounds with room for it.
+// Everything is SVG + live text, so it stays sharp at any size and
+// needs no image request. The same mark is used for the favicon
+// (public/favicon.svg).
 // =============================================================
 
-const ICON = '/logo-ibima-icon.png';
-const FULL = '/logo-ibima.png';
+// The "i": head, shoulders, stem. Its bottom edge sits on the text
+// baseline (see Wordmark), so the dot rises above the cap height
+// the way it does in the artwork.
+export const IMark = ({ className = '' }) => (
+    <svg viewBox="0 0 55 136" className={className} aria-hidden="true" focusable="false">
+        <circle cx="27.5" cy="16" r="16" fill="var(--color-logo-orange)" />
+        <rect x="0" y="40" width="55" height="25" rx="12.5" fill="var(--color-logo-teal)" />
+        <rect x="14.5" y="44" width="26" height="92" rx="13" fill="var(--color-logo-teal)" />
+    </svg>
+);
 
+// "iBima Assist" as one unit. Size it with a font-size class on the
+// parent or via `className`; every part scales in em.
+export const Wordmark = ({ onDark = false, className = '' }) => (
+    <span className={`inline-flex items-baseline whitespace-nowrap leading-none tracking-tight ${className}`} aria-label={BRAND.name}>
+        <IMark className="relative top-[0.08em] mr-[0.05em] h-[1.36em] w-auto shrink-0 self-baseline" />
+        <span aria-hidden="true" className="font-extrabold" style={{ color: onDark ? '#ffffff' : 'var(--color-logo-navy)' }}>
+            {BRAND.nameLead}
+        </span>
+        <span aria-hidden="true" className="ml-[0.26em] font-bold" style={{ color: 'var(--color-logo-teal)' }}>
+            {BRAND.nameTrail}
+        </span>
+    </span>
+);
+
+// `variant`: 'dark' = dark text for light backgrounds, 'light' = for
+// dark backgrounds. 'full' is kept for older call sites and behaves
+// like 'dark' at a slightly larger size.
 const BrandLogo = ({ variant = 'dark', className = '', showTagline = false }) => {
     const onDark = variant === 'light';
     const full = variant === 'full';
@@ -33,47 +50,24 @@ const BrandLogo = ({ variant = 'dark', className = '', showTagline = false }) =>
     return (
         <Link
             to="/"
-            className={`group inline-flex min-w-0 items-center gap-2 sm:gap-2.5 ${className}`}
+            className={`group inline-flex min-w-0 flex-col justify-center leading-none ${className}`}
             aria-label={`${BRAND.name} home`}
         >
-            {full ? (
-                <img
-                    src={FULL}
-                    alt={BRAND.name}
-                    width={203}
-                    height={130}
-                    className="h-11 w-auto sm:h-12"
-                />
-            ) : (
-                <>
-                    <img
-                        src={ICON}
-                        alt=""
-                        width={166}
-                        height={85}
-                        aria-hidden="true"
-                        className="h-7 w-auto shrink-0 transition-transform duration-300 group-hover:scale-105 sm:h-8"
-                    />
+            <Wordmark
+                onDark={onDark}
+                className={`transition-transform duration-300 group-hover:scale-[1.02] ${
+                    full ? 'text-[1.45rem]' : 'text-[1.3rem] sm:text-[1.45rem]'
+                }`}
+            />
 
-                    <span className="flex min-w-0 flex-col leading-none">
-                        <span className="truncate text-[1.15rem] font-extrabold tracking-tight sm:text-[1.28rem]">
-                            <span style={{ color: onDark ? '#ffffff' : 'var(--color-logo-navy)' }}>
-                                {BRAND.nameLead}
-                            </span>
-                            <span style={{ color: 'var(--color-logo-orange)' }}> {BRAND.nameTrail}</span>
-                        </span>
-
-                        {showTagline && (
-                            <span
-                                className={`mt-1 text-[11px] font-medium uppercase tracking-[0.12em] sm:tracking-[0.14em] ${
-                                    onDark ? 'text-slate-400' : 'text-slate-500'
-                                }`}
-                            >
-                                {BRAND.tagline}
-                            </span>
-                        )}
-                    </span>
-                </>
+            {showTagline && (
+                <span
+                    className={`mt-2 text-[11px] font-medium uppercase tracking-[0.12em] sm:tracking-[0.14em] ${
+                        onDark ? 'text-slate-400' : 'text-slate-500'
+                    }`}
+                >
+                    {BRAND.tagline}
+                </span>
             )}
         </Link>
     );

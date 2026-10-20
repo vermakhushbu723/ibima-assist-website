@@ -1,4 +1,4 @@
-# IBima Assist — Corporate Website
+# iBima Assist — Corporate Website
 
 The public marketing site for the claims platform built in this repo group. It explains the
 products and services; it is **not** the product itself.
@@ -91,9 +91,9 @@ particular:
   Disclaimer, Grievance Redressal) all point at `/contact` until the real documents exist. Their
   targets live in `LEGAL.policies`.
 - **Logo — check the co-branding.** The navbar, footer, drawer and favicon now use the real
-  IBima Assist mark, extracted from the product app's `src/assets/logo.png`. That source file is a
+  iBima Assist mark, extracted from the product app's `src/assets/logo.png`. That source file is a
   **co-branding lockup holding two logos**: New India Assurance (a client insurer) on the left and
-  IBima Assist on the right. Only the right-hand mark is used here — putting a client's logo in
+  iBima Assist on the right. Only the right-hand mark is used here — putting a client's logo in
   this site's own chrome would present them as part of this brand. If the client does want the
   New India Assurance logo shown, it belongs in a clients/partners section with their written
   permission, not in the header. Re-run `node scripts/extract-logo.mjs` if the source logo changes;
@@ -106,7 +106,7 @@ particular:
 
 ## Naming
 
-- **IBima Assist** — the product, and the name in the wordmark, page titles and body copy.
+- **iBima Assist** — the product, and the name in the wordmark, page titles and body copy.
 - **VroomSync Expertise Pvt Ltd** — the company that owns and operates it. Appears as
   "Powered by …" under the footer wordmark, in the copyright line, and throughout the
   declarations block.

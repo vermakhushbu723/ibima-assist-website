@@ -58,7 +58,7 @@ const ProfileCard = ({ person, index }) => (
 const TeamPage = () => {
     usePageMeta(
         'Our Team',
-        'Claims professionals, licensed surveyors, computer-vision engineers and product teams — the people behind the IBima Assist platform.',
+        'Claims professionals, licensed surveyors, computer-vision engineers and product teams — the people behind the iBima Assist platform.',
     );
 
     return (

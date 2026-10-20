@@ -192,7 +192,7 @@ export const TEAM_PROFILES = [
 
 export const FAQS = [
     {
-        q: 'What does IBima Assist actually do?',
+        q: 'What does iBima Assist actually do?',
         a: 'We provide the technology that runs a general insurance claim end to end — guided evidence capture at the scene, AI-assisted damage assessment, and a claims console that moves the file from first notice of loss through to settlement and the surveyor fee bill.',
     },
     {

@@ -26,11 +26,11 @@
     --color-accent: #f59e0b;
     --color-accent-soft: #fbbf24;
 
-    /* Sampled from the supplied IBima Assist logo (see
-       scripts/extract-logo.mjs) so the HTML wordmark beside the mark
-       matches the printed one rather than approximating it. */
-    --color-logo-navy: #0a1e4a;
-    --color-logo-orange: #f87818;
+    /* Sampled from the client's "iBima Assist" wordmark artwork so the
+       drawn logo in <BrandLogo /> matches it rather than approximating it. */
+    --color-logo-navy: #012d52;
+    --color-logo-orange: #fc9732;
+    --color-logo-teal: #0ab4cc;
 
     --font-sans:
         'Inter', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial,
