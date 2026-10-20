@@ -64,13 +64,16 @@ const CTABand = ({
                 </div>
 
                 <p className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-[13px] text-slate-400 sm:text-sm">
-                    <a
-                        href={CONTACT.phoneHref}
-                        className="inline-flex items-center gap-2 py-1.5 transition hover:text-white"
-                    >
-                        <Icon name="phone" className="h-4 w-4 shrink-0" strokeWidth={1.7} />
-                        {CONTACT.phone}
-                    </a>
+                    {CONTACT.phones.map((p) => (
+                        <a
+                            key={p.href}
+                            href={p.href}
+                            className="inline-flex items-center gap-2 py-1.5 transition hover:text-white"
+                        >
+                            <Icon name="phone" className="h-4 w-4 shrink-0" strokeWidth={1.7} />
+                            {p.label}
+                        </a>
+                    ))}
                     <a
                         href={CONTACT.emailHref}
                         className="inline-flex max-w-full items-center gap-2 break-all py-1.5 transition hover:text-white"

@@ -116,7 +116,7 @@ const FaqPage = () => {
                         {
                             icon: 'phone',
                             title: 'Call us',
-                            body: CONTACT.phone,
+                            body: CONTACT.phones.map((p) => p.label).join(' / '),
                             href: CONTACT.phoneHref,
                             sub: 'During business hours',
                         },

@@ -153,14 +153,15 @@ const Footer = () => {
                     <div className="sm:col-span-2 lg:col-span-3">
                         <FooterHeading>Get in touch</FooterHeading>
                         <ul className="mt-4 grid gap-3.5 text-sm text-slate-400 sm:grid-cols-2 lg:grid-cols-1">
-                            <li>
-                                <a
-                                    href={CONTACT.phoneHref}
-                                    className="inline-flex items-start gap-2.5 py-1 transition-colors hover:text-white"
-                                >
-                                    <Icon name="phone" className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" strokeWidth={1.7} />
-                                    {CONTACT.phone}
-                                </a>
+                            <li className="flex items-start gap-2.5">
+                                <Icon name="phone" className="mt-1.5 h-4 w-4 shrink-0 text-brand-400" strokeWidth={1.7} />
+                                <span>
+                                    {CONTACT.phones.map((p) => (
+                                        <a key={p.href} href={p.href} className="block py-1 transition-colors hover:text-white">
+                                            {p.label}
+                                        </a>
+                                    ))}
+                                </span>
                             </li>
                             <li>
                                 <a
@@ -169,6 +170,15 @@ const Footer = () => {
                                 >
                                     <Icon name="mail" className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" strokeWidth={1.7} />
                                     {CONTACT.email}
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href={CONTACT.websiteHref}
+                                    className="inline-flex items-start gap-2.5 break-all py-1 transition-colors hover:text-white"
+                                >
+                                    <Icon name="globe" className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" strokeWidth={1.7} />
+                                    {CONTACT.website}
                                 </a>
                             </li>
                             <li className="flex items-start gap-2.5">

@@ -23,8 +23,7 @@ export const BRAND = {
 // LEGAL / DECLARATIONS
 // Rendered in the footer's legal band on every page.
 // TODO: the registration identifiers below are placeholders —
-// replace with VroomSync Expertise Pvt Ltd's actual CIN, GSTIN
-// and registered address before the site goes live.
+// replace with VroomSync Expertise Pvt Ltd's actual CIN and GSTIN.
 // =============================================================
 export const LEGAL = {
     cin: 'CIN: U00000XX0000PTC000000',
@@ -82,19 +81,25 @@ export const NAV_LINKS = [
 
 // TODO: replace every value below with the client's real details.
 export const CONTACT = {
-    phone: '+91 00000 00000',
-    phoneHref: 'tel:+910000000000',
-    email: 'info@ibimaassist.in',
-    emailHref: 'mailto:info@ibimaassist.in',
-    sales: 'sales@ibimaassist.in',
-    salesHref: 'mailto:sales@ibimaassist.in',
+    // Primary number — used where only one fits (mobile menu).
+    phone: '+91 92013 25367',
+    phoneHref: 'tel:+919201325367',
+    // Every number, for places that list them all.
+    phones: [
+        { label: '+91 92013 25367', href: 'tel:+919201325367' },
+        { label: '+91 85029 38357', href: 'tel:+918502938357' },
+    ],
+    email: 'info@ibimaassist.com',
+    emailHref: 'mailto:info@ibimaassist.com',
+    website: 'www.ibimaassist.com',
+    websiteHref: 'https://www.ibimaassist.com',
     registeredOffice: {
         label: 'Registered Office',
-        lines: ['Address line 1', 'Address line 2', 'New Delhi - 110000'],
-    },
-    operationsOffice: {
-        label: 'Operations Centre',
-        lines: ['Address line 1', 'Address line 2', 'Delhi - 110000'],
+        lines: [
+            'Pati Basant Vihar Colony, Near Garden',
+            'Purena, Krishak Nagar',
+            'Raipur, Chhattisgarh - 492012',
+        ],
     },
     hours: [
         { days: 'Monday – Friday', time: '9:00 AM – 6:00 PM IST' },

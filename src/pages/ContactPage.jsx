@@ -134,24 +134,25 @@ const ContactPage = () => {
         {
             icon: 'phone',
             title: 'Phone',
-            lines: [CONTACT.phone],
-            href: CONTACT.phoneHref,
+            // Each number is its own tel: link, so the card itself isn't one.
+            lines: CONTACT.phones,
         },
         {
             icon: 'mail',
             title: 'Email',
-            lines: [CONTACT.email, CONTACT.sales],
+            lines: [CONTACT.email],
             href: CONTACT.emailHref,
+        },
+        {
+            icon: 'globe',
+            title: 'Website',
+            lines: [CONTACT.website],
+            href: CONTACT.websiteHref,
         },
         {
             icon: 'pin',
             title: CONTACT.registeredOffice.label,
             lines: CONTACT.registeredOffice.lines,
-        },
-        {
-            icon: 'pin',
-            title: CONTACT.operationsOffice.label,
-            lines: CONTACT.operationsOffice.lines,
         },
     ];
 
@@ -215,14 +216,24 @@ const ContactPage = () => {
                                             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">
                                                 {c.title}
                                             </p>
-                                            {c.lines.map((line) => (
-                                                <p
-                                                    key={line}
-                                                    className="mt-0.5 break-words text-[13px] font-medium text-slate-700 sm:text-sm"
-                                                >
-                                                    {line}
-                                                </p>
-                                            ))}
+                                            {c.lines.map((line) =>
+                                                typeof line === 'string' ? (
+                                                    <p
+                                                        key={line}
+                                                        className="mt-0.5 break-words text-[13px] font-medium text-slate-700 sm:text-sm"
+                                                    >
+                                                        {line}
+                                                    </p>
+                                                ) : (
+                                                    <a
+                                                        key={line.href}
+                                                        href={line.href}
+                                                        className="mt-0.5 block text-[13px] font-medium text-slate-700 hover:text-brand-600 sm:text-sm"
+                                                    >
+                                                        {line.label}
+                                                    </a>
+                                                ),
+                                            )}
                                         </div>
                                     </>
                                 );

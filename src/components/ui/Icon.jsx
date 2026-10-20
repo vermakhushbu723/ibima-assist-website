@@ -10,6 +10,7 @@ import {
     ChartColumn,
     Check,
     ChevronDown,
+    Globe,
     ClipboardCheck,
     Code2,
     Crosshair,
@@ -122,6 +123,7 @@ const ICONS = {
     mail: Mail,
     pin: MapPin,
     clock: Clock,
+    globe: Globe,
 
     // UI
     check: Check,
