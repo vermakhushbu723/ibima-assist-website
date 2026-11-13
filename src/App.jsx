@@ -16,6 +16,7 @@ const TeamPage = lazy(() => import('./pages/TeamPage'));
 const FaqPage = lazy(() => import('./pages/FaqPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+const LoginPage = lazy(() => import('./pages/LoginPage'));
 
 // The admin panel has its own shell (sidebar + navbar) and never
 // renders the public site's Navbar/Footer.
@@ -45,6 +46,7 @@ const SiteLayout = () => (
                         <Route path="/team" element={<TeamPage />} />
                         <Route path="/faqs" element={<FaqPage />} />
                         <Route path="/contact" element={<ContactPage />} />
+                        <Route path="/login" element={<LoginPage />} />
                         <Route path="*" element={<NotFoundPage />} />
                     </Routes>
                 </PageTransition>
