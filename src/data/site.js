@@ -120,7 +120,7 @@ export const SOCIAL_LINKS = [
 // Where the "Login" / "Launch app" buttons point. Update these to
 // the deployed product URLs once they are live.
 export const APP_LINKS = {
-    portal: '/login', // common login of the Super Admin, Admin and Claim portals
+    portal: '/login', // common portal login (served by nginx); the account decides the portal
     admin: '#', // TODO: URL of the admin console (/admin)
     androidApp: '#', // TODO: Play Store listing
     iosApp: '#', // TODO: App Store listing
